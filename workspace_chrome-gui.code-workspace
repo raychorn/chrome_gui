@@ -4,5 +4,7 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"python.venvPath": "C:\\Users\\Owner\\OneDrive\\Python39\\chrome-gui\\venv",
+	}
 }
