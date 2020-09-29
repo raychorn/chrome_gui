@@ -7,7 +7,7 @@
 	"settings": {
 		"python.venvPath": "C:\\Users\\Owner\\OneDrive\\Python39\\chrome-gui\\venv",
 		"terminal.integrated.env.windows": {
-			"PATH": "C:\\Program Files\\Git\\cmd"
+			"PATH": "C:/Program Files/Git/cmd;C:/msys/opt/windows_64/bin;C:/Users/Owner/OneDrive/Python39/chrome-gui/venv/Scripts"
 		},
 }
 }
