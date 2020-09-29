@@ -3,7 +3,7 @@ import imp
 import os
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -36,7 +36,7 @@ class ImpWrapper:
             if (callable(self.__callback__)):
                 try:
                     self.__callback__(path,fullname)
-                except Exception, details:
+                except Exception as details:
                     print 'ERROR: %s' % (str(details))
                     callback_failed = True
             else:

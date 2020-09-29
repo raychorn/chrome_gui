@@ -56,7 +56,7 @@ class persistence(object):
                 if (handle.has_key(key)):
                     try:
                         value = handle[key]
-                    except Exception, details:
+                    except Exception as details:
                         print 'Unable to un-shelve from "%s" due to "%s".' % (fname,str(details))
                     finally:
                         handle.close()
@@ -66,7 +66,7 @@ class persistence(object):
                 if (handle.has_key(key)):
                     try:
                         value = handle[key]
-                    except Exception, details:
+                    except Exception as details:
                         print 'Unable to un-shelve from "%s" due to "%s".' % (fname,str(details))
                     finally:
                         handle.close()

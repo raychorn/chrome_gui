@@ -67,7 +67,7 @@ class DirectoryWatcher():
         if (callable(self.__callback__)):
             try:
                 self.__callback__(self,action,fpath)
-            except Exception, ex:
+            except Exception as ex:
                 self.queue_logging(logging.ERROR,'%s.1 :: %s' % (misc.funcName(),_utils.formattedException(details=ex)))
         self.queue_logging(logging.INFO,'%s.1 :: (%s) (%s) %s' % (misc.funcName(), action.name, 'D' if (os.path.isdir(fp)) else 'F' if (os.path.isfile(fp)) else 'U', fp))
 

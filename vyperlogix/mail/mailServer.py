@@ -13,7 +13,7 @@ from vyperlogix.daemon.daemon import Log
 from vyperlogix.misc import ObjectTypeName
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -107,7 +107,7 @@ class MailServer(Cooperative):
                 self.mailServer.set_debuglevel(self.debug)
                 if (len(self.smtp_username) > 0) and (len(self.smtp_password) > 0):
                     self.mailServer.login(self.smtp_username,self.smtp_password)
-            except Exception, details:
+            except Exception as details:
                 tbinfofile = StringIO.StringIO()
                 traceback.print_exc(None, tbinfofile)
                 tbinfofile.seek(0)
@@ -203,7 +203,7 @@ class MailServer(Cooperative):
                 
                 return info_string
 
-            except Exception, details:
+            except Exception as details:
                 info_string = 'Error in delivering e-mail to one of %s\n%s' % (sendToList,_utils.formattedException(details=details))
                 if self.log is not None:
                     self.log.exception(info_string)

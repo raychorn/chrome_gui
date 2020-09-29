@@ -16,7 +16,7 @@ from vyperlogix.url import _urllib2
 from BeautifulSoup import BeautifulStoneSoup
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -60,7 +60,7 @@ class ModelFeed:
 			so[node.name] = _utils.ascii_only(node.string.extract())
 		if (callable(callback)):
 		    callback(so)
-        except Exception, e:
+        except Exception as e:
             info_string = _utils.formattedException(details=e)
 	    so = SmartObject.SmartObject()
 	    s.info_string = info_string
@@ -74,7 +74,7 @@ class ModelFeed:
 
         try:
 	    self.walk_nodes(url,handle_node)
-        except Exception, e:
+        except Exception as e:
             info_string = _utils.formattedException(details=e)
             items.append(info_string)
             items.append(str(file_feed))
@@ -89,7 +89,7 @@ class ModelFeed:
 
         try:
 	    self.walk_nodes(url,handle_node)
-        except Exception, e:
+        except Exception as e:
             info_string = _utils.formattedException(details=e)
             items.append(info_string)
             items.append(str(file_feed))

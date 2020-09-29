@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import re
 import os, sys, stat, platform
 from time import localtime, asctime
@@ -26,7 +28,7 @@ class DeCamelCaseMethods(Enum):
     default = 2**0
     force_lower_case = 2**1
 
-isBeingDebugged = False if (not os.environ.has_key('WINGDB_ACTIVE')) else int(os.environ['WINGDB_ACTIVE']) == 1
+isBeingDebugged = False if (not 'WINGDB_ACTIVE' in os.environ.keys()) else int(os.environ['WINGDB_ACTIVE']) == 1
 isVerbose = False
 
 isUsingWindows = (sys.platform.lower().find('win') > -1) and (os.name.lower() == 'nt')
@@ -42,7 +44,7 @@ splice = lambda line,start,newStr,end:line[:start] + newStr + line[end:]
 def terminate(reason):
     from vyperlogix.process.killProcByPID import killProcByPID
     if (reason):
-        print >> sys.stderr, reason
+        sys.stdout.write(reason + '\n')
     killProcByPID(os.getpid())
 
 def os_platform():
@@ -140,7 +142,7 @@ is_valid_ip = lambda value:ObjectTypeName.typeClassName(re.compile(__regex_valid
 is_valid_ip_and_port = lambda value:ObjectTypeName.typeClassName(re.compile(__regex_valid_ip_and_port__, re.MULTILINE).match(value)) == '_sre.SRE_Match'
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -187,14 +189,14 @@ if (sys.platform == 'win32'):
         del all_modes[k]
 _all_modes = lists.HashedLists(all_modes.asDict(insideOut=True,isCopy=True))
 
-windows_mask = 0
+windows_mask = 0x0
 for item in windows_modes:
     v = all_modes[item]
     if (isinstance(v,list)):
         for _item in v:
-            windows_mask |= _item
+            windows_mask = windows_mask or _item
     else:
-        windows_mask |= v
+        windows_mask = windows_mask or v
 
 parse_key_value_pairs_as_dict = lambda params:lists.HashedLists2(dict([tuple(t) for t in [p.split('=') for p in params.split('\n') if (len(p) > 0)] if (len(t) == 2)]))
 
@@ -248,13 +250,13 @@ def hex_ascii(blob,size=20,ascii_only=False):
 def is_ip_address_valid(ip):
     '''127.0.0.1 is the general form of an IP address'''
     if (is_valid_ip(ip) or is_valid_ip_and_port(ip)):
-	if (is_valid_ip_and_port(ip)):
-	    toks1 = ip.split(':')
-	    toks2 = toks1[0].split('.')
-	    return (len(toks2) == 4) and all([str(n).isdigit() for n in list(tuple(toks2+[toks1[-1]]))])
-	elif (is_valid_ip(ip)):
-	    toks = ip.split('.')
-	    return (len(toks) == 4) and all([str(n).isdigit() for n in toks])
+        if (is_valid_ip_and_port(ip)):
+            toks1 = ip.split(':')
+            toks2 = toks1[0].split('.')
+            return (len(toks2) == 4) and all([str(n).isdigit() for n in list(tuple(toks2+[toks1[-1]]))])
+        elif (is_valid_ip(ip)):
+            toks = ip.split('.')
+            return (len(toks) == 4) and all([str(n).isdigit() for n in toks])
     return False
 
 def eat_leading_token_if_empty(url,delim='/'):
@@ -285,6 +287,10 @@ def asMessage(reason):
     from vyperlogix import misc
     return '(%s) %s.' % (misc.callersName(),reason)
 
+def getVersionFloat():
+    import sys
+    return float(sys.version_info.major)+(float(sys.version_info.minor)/10)+(float(sys.version_info.micro)/100)
+
 def getVersionNumber():
     import sys
     return int(''.join(sys.version.split()[0].split('.')))
@@ -314,10 +320,10 @@ def cleanup_sqlautocode(fname):
         fOut.flush()
         fOut.close()
         fIn.close()
-        print '%s :: Processed %d lines.' % (misc.funcName(),_count)
+        print_function('%s :: Processed %d lines.' % (misc.funcName(),_count))
         os.remove(fIn.name)
         os.rename(fOut.name,fIn.name)
-        print '%s :: Done !' % (misc.funcName())
+        print_function('%s :: Done !' % (misc.funcName()))
 
 def does_path_exist_conclusively(fpath):
     import re
@@ -335,11 +341,11 @@ def does_path_exist_conclusively(fpath):
     content = readFileFrom(__fname__)
     __m__ = __re__.search(content)
     if (__m__):
-	so = SmartObject(__m__.groupdict())
-	if (fpath.find('%s%s'%(os.sep,so.folder))):
-	    __is__ = True
+        so = SmartObject(__m__.groupdict())
+        if (fpath.find('%s%s'%(os.sep,so.folder))):
+            __is__ = True
     if (os.path.exists(__fname__)):
-	os.remove(__fname__)
+        os.remove(__fname__)
     return __is__
 
 def safely_remove(fname_or_dirname):
@@ -402,14 +408,14 @@ def failUnlessEqual(first, second, msg=None):
        operator.
     """
     if not first == second:
-        raise AssertionError, (msg or '%r != %r' % (first, second))
+        raise(AssertionError, (msg or '%r != %r' % (first, second)))
 
 def failIfEqual(first, second, msg=None):
     """Fail if the two objects are equal as determined by the '=='
        operator.
     """
     if first == second:
-        raise AssertionError, (msg or '%r == %r' % (first, second))
+        raise(AssertionError, (msg or '%r == %r' % (first, second)))
 
 def booleanize(data):
     return True if str(data).lower() in ['true','1','yes'] else False
@@ -460,9 +466,9 @@ def _searchForFileOrFolderNamed(fname,top='/',isFile=False,callback=None,options
         if (options.value & FileFolderSearchOptions.callback_folders.value) and (callable(callback)):
             try:
                 callback(root)
-            except Exception, details:
+            except Exception as details:
                 import sys
-                print >>sys.stderr, formattedException(details=details)
+                sys.stderr.write(formattedException(details=details) + '\n')
         if (not isFile):
             if (fname in dirs):
                 return os.sep.join([root,fname])
@@ -474,9 +480,9 @@ def _searchForFileOrFolderNamed(fname,top='/',isFile=False,callback=None,options
                     if (options.value & FileFolderSearchOptions.callback_files.value) and (callable(callback)):
                         try:
                             callback(root, files)
-                        except Exception, details:
+                        except Exception as details:
                             import sys
-                            print >>sys.stderr, formattedException(details=details)
+                            sys.stderr.write(formattedException(details=details) + '\n')
                     if (f.endswith(_target)):
                         return os.sep.join([root,f])
     return ''
@@ -606,7 +612,7 @@ def parms_dict_from_url(s_url):
     '''This function converts a URL that has parms to the right of the "?" into a dict.'''
     try:
         return lists.HashedLists2(dict([tuple(t.split('=')) for t in s_url.split('?')[-1].split('&')]))
-    except ValueError, details:
+    except ValueError as details:
         return lists.HashedLists2()
 
 def parse_parms_from_url(url):
@@ -706,9 +712,9 @@ def today_localtime(_timedelta=None,begin_at_midnight=False):
     try:
         if (_timedelta is not None):
             return dt - _timedelta
-    except Exception, details:
+    except Exception as details:
         info_string = formattedException(details=details)
-        print >>sys.stderr, info_string
+        sys.stderr.write(info_string + '\n')
     return dt
 
 def datetime_as_seconds(dt):
@@ -775,9 +781,9 @@ def getAsDateTimeStr(value, offset=0,fmt=_formatTimeStr()):
             try: 
                 value = time.strptime(value, fmt)
                 return time.strftime(fmt, value)
-            except Exception, details: 
+            except Exception as details: 
                 info_string = formattedException(details=details)
-                print >>sys.stderr, 'ERROR :: getDateTimeTuple Could not parse "%s".\n%s' % (value,info_string)
+                sys.stderr.write('ERROR :: getDateTimeTuple Could not parse "%s".\n%s\n' % (value,info_string))
                 secs = time.gmtime(time.time()+offset)
                 return time.strftime(fmt, secs)
         elif (isinstance(value,datetime)):
@@ -787,7 +793,7 @@ def getAsDateTimeStr(value, offset=0,fmt=_formatTimeStr()):
             ts = time.strftime(fmt, value.timetuple())
             return ts
     else:
-        print >>sys.stderr, 'ERROR :: offset must be a numeric type rather than string type.'
+        sys.stderr.write('ERROR :: offset must be a numeric type rather than string type.\n')
 # END getAsDateTimeStr
 
 def getDayOfYear(dt):
@@ -950,9 +956,9 @@ def timeStampForFileName(format=_formatTimeStr(),useLocalTime=isUsingLocalTimeCo
             useLocalTime = isUsingLocalTimeConversions if (not isinstance(useLocalTime,bool)) else useLocalTime
             return timeStamp(format=format,useLocalTime=useLocalTime).replace('T',delimiters[0]).replace(':',delimiters[-1])
         else:
-            print >>sys.stderr, '%s :: Invalid use of delimiters parameter, cannot use ":" as a delimiter, double-check your work.' % (misc.funcName())
+            sys.stderr.write('%s :: Invalid use of delimiters parameter, cannot use ":" as a delimiter, double-check your work.\n' % (misc.funcName()))
     except:
-        print >>sys.stderr, '%s :: Invalid use of parameters, double-check your work.' % (misc.funcName())
+        sys.stderr.write('%s :: Invalid use of parameters, double-check your work.\n' % (misc.funcName()))
     return None
 
 def only_float_digits(aString):
@@ -1021,7 +1027,7 @@ def isSometimeToday(ts):
         elif (isTimeStamp(ts)):
             other_day = getFromNativeTimeStamp(ts.split('_')[0])
         else:
-            print >>sys.stderr, '(%s) :: Unknown format for "%s".' % (misc.funcName(),ts)
+            sys.stderr.write('(%s) :: Unknown format for "%s".\n' % (misc.funcName(),ts))
     else:
         other_day = ts
     other_mm_dd_yyyy = getAsDateTimeStr(other_day,fmt=format)
@@ -1123,13 +1129,13 @@ def readFileFromGenerator(fname,mode='r'):
     fIn = open(fname,mode)
     try:
         if (mode.find('b') == -1):
-	    line = '<top>'
-	    while (misc.isStringValid(line)):
-		line = fIn.readline()
-		if (misc.isStringValid(line)):
-		    yield line
-		else:
-		    break
+            line = '<top>'
+            while (misc.isStringValid(line)):
+                line = fIn.readline()
+                if (misc.isStringValid(line)):
+                    yield line
+                else:
+                    break
         else:
             yield fIn.read()
     finally:
@@ -1143,7 +1149,7 @@ def writeFileFrom(fname,contents,mode='w'):
     safely_mkdir(fpath=dname,dirname='')
     fOut = open(fname,mode)
     try:
-        fOut.write(contents)
+        fOut.write(contents + '\n')
     finally:
         fOut.flush()
         fOut.close()
@@ -1230,7 +1236,7 @@ def crc32(top, isVerbose=False, isObfuscated=False):
         for f in files:
             _fname = os.sep.join([root,f])
             if (isVerbose):
-                print '%s' % (_fname)
+                print_function('%s' % (_fname))
             crc = _crc32(_fname)
     return crc if (not isObfuscated) else keys._encode('%d' % (crc))
 
@@ -1295,7 +1301,7 @@ def spawnProcessWithDetails(progPath,env=None,shell=False,fOut=None,pWait=True):
             p.wait()
         else:
             return p
-    except Exception, details:
+    except Exception as details:
         from vyperlogix import misc
         _isError = True
         _details = misc.formattedException(details=details)
@@ -1308,14 +1314,14 @@ def spawnProcessWithDetails(progPath,env=None,shell=False,fOut=None,pWait=True):
         if (os.path.exists(logFname)):
             try:
                 os.remove(logFname)
-            except Exception, details:
+            except Exception as details:
                 from vyperlogix import misc
                 _details = misc.formattedException(details=details)
                 logging.warning('WARNING :: Unable to remove the "%s" file in "%s" due to a Windows Error which is "%s".' % (logFname,_details_symbol,details))
         if (os.path.exists(_details_symbol)):
             try:
                 os.rmdir(_details_symbol)
-            except Exception, details:
+            except Exception as details:
                 from vyperlogix import misc
                 _details = misc.formattedException(details=details)
                 logging.warning('WARNING :: Unable to remove the "%s" folder in "%s" due to a Windows Error which is "%s".' % (logFname,os.curdir,details))
@@ -1365,7 +1371,7 @@ def walk(top, topdown=True, onerror=None, rejecting_re=None):
 
     try:
         names = [n for n in os.listdir(top) if (not isRejectingRe) or (isRejectingRe and not rejecting_re.search(n))]
-    except os.error, err:
+    except os.error as err:
         if onerror is not None:
             onerror(err)
         return
@@ -1395,8 +1401,8 @@ def get_allfiles_from(fpath,callback=None,topdown=True,followlinks=True):
             try:
                 if (callable(callback) and (callback(top,dirs,f))):
                     allfiles.append(os.path.join(top,f))
-            except Exception, ex:
-                print formattedException(details=ex)
+            except Exception as ex:
+                print_function(formattedException(details=ex))
     return allfiles
 
 def removeAllFilesUnder(top,rejecting_re=None,matching_re=None):
@@ -1413,9 +1419,8 @@ def removeAllFilesUnder(top,rejecting_re=None,matching_re=None):
         if (not isMatchingRe) and (os.path.exists(root)) and (os.listdir(root) == []):
             try:
                 os.rmdir(root)
-            except WindowsError, details:
-                print 'ERROR due to %s' % details
-                pass
+            except WindowsError as details:
+                print_function('ERROR due to %s' % details)
 
 def handleAllFilesUnder(top,callback,rejecting_re=None,matching_re=None):
     """ handle all files under top not including folders """
@@ -1452,7 +1457,7 @@ def validatePathEXE(eVar=['PATH','PYTHONPATH'],fname='python.exe',verbose=False)
             for t in toks:
                 f = searchForFileNamed(fname,t)
                 if (verbose):
-                    print '(%s)=[%s in %s]' % (f,fname,t)
+                    print_function('(%s)=[%s in %s]' % (f,fname,t))
                 if (len(f) > 0):
                     return os.sep.join([t,fname])
     return ''
@@ -1509,27 +1514,27 @@ def explain_stat(st,delim=',',asDict=False):
             st[k.upper()] = st[k]
             del st[k]
     try:
-        __ST_ATIME__ = st[stat.ST_ATIME] if (__is__) else st.get('ST_ATIME',0L) if (__is_dict__) else 0L
+        __ST_ATIME__ = st[stat.ST_ATIME] if (__is__) else (st.get('ST_ATIME',0)) if (__is_dict__) else 0
         val = tuple(['ST_ATIME','%s=%s'%(__ST_ATIME__,st_normalize(__ST_ATIME__))])
         if (asDict):
             s.append(val)
         else:
             s.append('%s is %s' % val)
-    except Exception, ex:
+    except Exception as ex:
         info_string = formattedException(details=ex)
         pass
     try:
-        __ST_CTIME__ = st[stat.ST_CTIME] if (__is__) else st.get('ST_CTIME',0L) if (__is_dict__) else 0L
+        __ST_CTIME__ = st[stat.ST_CTIME] if (__is__) else st.get('ST_CTIME',0) if (__is_dict__) else 0
         val = tuple(['ST_CTIME','%s=%s'%(__ST_CTIME__,st_normalize(__ST_CTIME__))])
         if (asDict):
             s.append(val)
         else:
             s.append('%s is %s' % val)
-    except Exception, ex:
+    except Exception as ex:
         info_string = formattedException(details=ex)
         pass
     try:
-        __ST_DEV__ = st[stat.ST_DEV] if (__is__) else st.get('ST_DEV',0L) if (__is_dict__) else 0L
+        __ST_DEV__ = st[stat.ST_DEV] if (__is__) else st.get('ST_DEV',0) if (__is_dict__) else 0
         val = tuple(['ST_DEV',__ST_DEV__])
         if (asDict):
             s.append(val)
@@ -1538,7 +1543,7 @@ def explain_stat(st,delim=',',asDict=False):
     except:
         pass
     try:
-        __ST_GID__ = st[stat.ST_GID] if (__is__) else st.get('ST_GID',0L) if (__is_dict__) else 0L
+        __ST_GID__ = st[stat.ST_GID] if (__is__) else st.get('ST_GID',0) if (__is_dict__) else 0
         val = tuple(['ST_GID',__ST_GID__])
         if (asDict):
             s.append(val)
@@ -1547,7 +1552,7 @@ def explain_stat(st,delim=',',asDict=False):
     except:
         pass
     try:
-        __ST_INO__ = st[stat.ST_INO] if (__is__) else st.get('ST_INO',0L) if (__is_dict__) else 0L
+        __ST_INO__ = st[stat.ST_INO] if (__is__) else st.get('ST_INO',0) if (__is_dict__) else 0
         val = tuple(['ST_INO',__ST_INO__])
         if (asDict):
             s.append(val)
@@ -1556,15 +1561,15 @@ def explain_stat(st,delim=',',asDict=False):
     except:
         pass
     try:
-        st_mode = st[stat.ST_MODE] if (__is__) else st.get('ST_MODE',0L) if (__is_dict__) else 0L
+        st_mode = st[stat.ST_MODE] if (__is__) else st.get('ST_MODE',0) if (__is_dict__) else 0
         _mode = stat.S_IMODE(st_mode)
-        print '_mode (%d) --> %s' % (_mode,dec2bin(_mode))
+        print_function('_mode (%d) --> %s' % (_mode,dec2bin(_mode)))
         r_mode = 0
         a = []
         for k,v in _all_modes.iteritems():
             _k_ = int(k)
             _v_ = (_mode and _k_)
-            print '%s and %s --> %s' % (_mode,_k_,_v_)
+            print_function('%s and %s --> %s' % (_mode,_k_,_v_))
             if (_v_):
                 a += v
                 r_mode = r_mode or _k_
@@ -1573,8 +1578,8 @@ def explain_stat(st,delim=',',asDict=False):
             s.append(val)
         else:
             s.append('%s is %s' % val)
-    except Exception, details:
-        print '%s' % (str(details))
+    except Exception as details:
+        print_function('%s' % (str(details)))
         pass
     try:
         val = tuple(['ST_MTIME','%s=%s'%(st[stat.ST_MTIME],st_normalize(st[stat.ST_MTIME]))])
@@ -1582,7 +1587,7 @@ def explain_stat(st,delim=',',asDict=False):
             s.append(val)
         else:
             s.append('%s is %s' % val)
-    except Exception, ex:
+    except Exception as ex:
         info_string = formattedException(details=ex)
         pass
     try:
@@ -1631,7 +1636,7 @@ def safe_rmtree(dirname, retry=0):
     '''Remove the tree at DIRNAME'''
     import shutil, time
     def rmtree(dirname):
-        chmod_tree(dirname, 0666, 0666)
+        chmod_tree(dirname, 0o0666, 0o0666)
         shutil.rmtree(dirname)
 
     if (os.path.isfile(dirname)):
@@ -1677,7 +1682,7 @@ def copyFile(src,dst,func=None,verbose=False,use_logging=False,no_shell=False):
     from vyperlogix import misc
     from vyperlogix.win import memoryUsage
     if (os.path.exists(src)):
-	availRAM = 16384
+        availRAM = 16384
         if (not no_shell) and (availRAM < 0):
             from vyperlogix.process import Popen
             if (isUsingWindows):
@@ -1690,24 +1695,24 @@ def copyFile(src,dst,func=None,verbose=False,use_logging=False,no_shell=False):
             fOut = open(dst,'wb')
             _failed = True
             try:
-		try:
-		    nBytes = 0
-		    while (1):
-			chunk = fIn.read(availRAM)
-			l_chunk = len(chunk)
-			nBytes += l_chunk
-			if (l_chunk > 0):
-			    fOut.write(chunk)
-			if (l_chunk < availRAM):
-			    if (verbose):
-				info_string = '%s.2a :: Wrote %s bytes.' % (misc.funcName(),nBytes)
-				if (use_logging):
-				    logging.info(info_string)
-				else:
-				    print >>sys.stderr, info_string
-			    break
-		except Exception, ex:
-		    print >> sys.stderr, 'EXCEPTION: %s' % (formattedException(details=ex))
+                try:
+                    nBytes = 0
+                    while (1):
+                        chunk = fIn.read(availRAM)
+                        l_chunk = len(chunk)
+                        nBytes += l_chunk
+                        if (l_chunk > 0):
+                            fOut.write(chunk)
+                        if (l_chunk < availRAM):
+                            if (verbose):
+                                info_string = '%s.2a :: Wrote %s bytes.' % (misc.funcName(),nBytes)
+                                if (use_logging):
+                                    logging.info(info_string)
+                                else:
+                                    sys.stderr.write(info_string + '\n')
+                            break
+                except Exception as ex:
+                    sys.stderr.write('EXCEPTION: %s\n' % (formattedException(details=ex)))
             finally:
                 fOut.flush()
                 fOut.close()
@@ -1717,14 +1722,14 @@ def copyFile(src,dst,func=None,verbose=False,use_logging=False,no_shell=False):
                     if (use_logging):
                         logging.info(info_string)
                     else:
-                        print >>sys.stderr, info_string
+                        sys.stderr.write(info_string + '\n')
     else:
         if (verbose):
             info_string = 'ERROR :: Cannot find the file named "%s".' % src
             if (use_logging):
                 logging.warning(info_string)
             else:
-                print >>sys.stderr, info_string
+                sys.stderr.write(info_string + '\n')
 
 def copyFiles(src,dst,func=None,verbose=False):
     if (len(os.path.splitext(src)[-1]) > 1):
@@ -1750,24 +1755,24 @@ def copy_binary_files_by_chunks(source,dest,chunk_size=(1024*64)-1,callback=None
     fIn = open(source,'rb')
     __is__ = callable(callback)
     if (not __is__):
-	fOut = open(dest,'wb')
+        fOut = open(dest,'wb')
     else:
-	callback(filename=source)
+        callback(filename=source)
     try:
         for chunk in read_in_chunks(fIn):
-	    if (not __is__):
-		fOut.write(chunk)
-	    else:
-		try:
-		    callback(chunk=chunk)
-		except:
-		    pass
+            if (not __is__):
+                fOut.write(chunk)
+            else:
+                try:
+                    callback(chunk=chunk)
+                except:
+                    pass
     finally:
-	if (not __is__):
-	    fOut.flush()
-	    fOut.close()
-	else:
-	    callback(eof=source)
+        if (not __is__):
+            fOut.flush()
+            fOut.close()
+        else:
+            callback(eof=source)
         fIn.close()
 
 def fileSize(fname):
@@ -1837,12 +1842,12 @@ def _findUsingPath(t,p):
             for f in files:
                 if (f.split(os.sep)[-1] == target) or (f.find(target) > -1):
                     p = os.sep.join([root,f])
-                    print '(+++).do_scan_for_file().1 q.put_nowait(%s)' % (p)
+                    print_function('(+++).do_scan_for_file().1 q.put_nowait(%s)' % (p))
                     q.put_nowait(p)
-                    print '(+++).do_scan_for_file().2 del statsDict["%s"]' % (top)
+                    print_function('(+++).do_scan_for_file().2 del statsDict["%s"]' % (top))
                     del statsDict[top]
                     return
-        print '(+++).do_scan_for_file().3 del statsDict["%s"]' % (top)
+        print_function('(+++).do_scan_for_file().3 del statsDict["%s"]' % (top))
         del statsDict[top]
 
     ptoks = p.split(';')
@@ -1872,13 +1877,13 @@ def _findUsingPath(t,p):
             p = q.get_nowait()
         except:
             p = None
-        print '(+++)._findUsingPath().1 Sleeping on "%s".' % (p)
+        print_function('(+++)._findUsingPath().1 Sleeping on "%s".' % (p))
         time.sleep(1)
         if (misc.isStringValid(p)):
-            print '(+++)._findUsingPath().2 Return "%s".' % (p)
+            print_function('(+++)._findUsingPath().2 Return "%s".' % (p))
             return p
         isDone = (len(Qs) == 0)
-    print '(+++)._findUsingPath().3 Return None.'
+    print_function('(+++)._findUsingPath().3 Return None.')
     return None
 
 def findUsingPath(fname):
@@ -1908,8 +1913,8 @@ def findUsingPath(fname):
 
 def print_stderrout(msg):
     import sys
-    print >>sys.stdout, msg
-    print >>sys.stderr, msg
+    sys.stdout.write(msg + '\n')
+    sys.stderr.write(msg + '\n')
 
 def strip(s):
     return ''.join([ch for ch in s if (ord(ch) != 0)]).strip()
@@ -1982,4 +1987,4 @@ def de_camel_case(stringAsCamelCase,delim=' ',method=DeCamelCaseMethods.default)
 
 if (__name__ == '__main__'):
     tt = today_utctime()
-    print tt
+    print_function(tt)

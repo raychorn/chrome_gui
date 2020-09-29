@@ -3,7 +3,7 @@ import os, re
 from distutils import util
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -64,7 +64,7 @@ class SecurePyZipFile(zipfile.ZipFile):
                             _f_base = f_base.split(os.sep)[-1]
                             self.write(f,f_base)
                         print '='*80
-            except Exception, details:
+            except Exception as details:
                 print 'Error in ZIP processing. (%s)' % (str(details))
 
     def get_rx(self):

@@ -61,7 +61,7 @@ def ShowBiggestDirectories(directory):
     import string
     GetSize(directory)
     # Get total number of bytes
-    total_size = 0L
+    total_size = 0
     for dir in listG:
         total_size = total_size + dir[0]
     if total_size != 0:

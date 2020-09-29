@@ -22,7 +22,7 @@ class synchronized(object):
                 print 'Acquired lock=>',currentThread()
                 try:
                     return f(*args, **kwargs)
-                except Exception, e:
+                except Exception as e:
                     raise
             finally:
                 self.lock.release()
@@ -46,7 +46,7 @@ class semaphore(object):
                 print 'Acquired sem=>',currentThread()
                 try:
                     return f(*args, **kwargs)
-                except Exception, e:
+                except Exception as e:
                     raise
             finally:
                 self.sem.release()
@@ -78,7 +78,7 @@ class event(object):
                 print 'Cleared event =>',currentThread()
                 try:
                     return f(*args, **kwargs)
-                except Exception, e:
+                except Exception as e:
                     raise
             finally:
                 # Wake up another thread...

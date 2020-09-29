@@ -333,7 +333,7 @@ def crontab(config,jsonHandler=None,callback=None,logging_callback=None,default=
 	    if (callable(jsonHandler)):
 		try:
 		    __config__ = jsonHandler(config.jsonFpath)
-		except Exception, ex:
+		except Exception as ex:
 		    __config__ = SmartObject()
 	    __file__ = config.schedulefpath if (misc.isStringValid(config.schedulefpath)) else None
 	    if (config.verbose):
@@ -344,7 +344,7 @@ def crontab(config,jsonHandler=None,callback=None,logging_callback=None,default=
 		__lines__ = _utils._readFileFrom(__file__)
 		if (config.verbose):
 		    __logger__('INFO.1.6: Crontab Content: "%s".' % (__lines__))
-	except Exception, ex:
+	except Exception as ex:
 	    __logger__('EXCEPTION.1: "%s".' % (_utils.formattedException(details=ex)))
         
 	__logger__('INFO.1.6.1: config.isRunning="%s".' % (config.isRunning))
@@ -391,7 +391,7 @@ def crontab(config,jsonHandler=None,callback=None,logging_callback=None,default=
 		    if (callable(jsonHandler)):
 			try:
 			    __config__ = jsonHandler(config.jsonFpath)
-			except Exception, ex:
+			except Exception as ex:
 			    __config__ = SmartObject()
 		    __file__ = config.schedulefpath if (misc.isStringValid(config.schedulefpath)) else None
 		    if (os.path.exists(__file__)):

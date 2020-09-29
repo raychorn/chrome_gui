@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -21,7 +21,7 @@ USE AT YOUR OWN RISK.
 def updateSalesForceObject(objProxy):
     try:
 	objProxy.update()
-    except Exception, details:
+    except Exception as details:
 	from vyperlogix.misc import _utils
 	info_string = _utils.formattedException(details=details)
 	print >>sys.stderr, info_string

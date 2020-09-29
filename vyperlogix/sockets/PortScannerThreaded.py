@@ -34,7 +34,7 @@ def __terminate__():
 	    print 'END !!!'
 	else:
 	    print 'DEBUG:  pid is not an Int because it is "%s" !!!' % (ObjectTypeName.typeClassName(pid))
-    except Exception, ex:
+    except Exception as ex:
 	info_string = _utils.formattedException(details=ex)
 	print info_string
 

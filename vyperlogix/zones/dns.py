@@ -17,7 +17,7 @@ from vyperlogix.url import _urllib2
 import BeautifulSoup
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -204,7 +204,7 @@ class ZoneEditProxy(MagicObject2):
 	s = 'self.zone_proxy.%s(*args,**kwargs)' % (self.n.pop())
 	try:
 	    objects = eval(s)
-	except Exception, details:
+	except Exception as details:
 	    objects = None
 	    info_string = _utils.formattedException(details=details)
 	return objects if (objects is not None) else self

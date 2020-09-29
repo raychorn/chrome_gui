@@ -28,7 +28,7 @@ def rewrite_anchor(_url,params='',callback=None,isDebug=False):
                         except:
                             href = _url # do nothing if there is not a callback...
                     return href
-                except Exception, details:
+                except Exception as details:
                     print >>sys.stderr, _utils.formattedException(details=details)
     return _url
 

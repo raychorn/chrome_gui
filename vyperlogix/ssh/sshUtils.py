@@ -3,7 +3,7 @@ SSH support for win32 development to spoof accessing server based Linux resource
 """
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -178,7 +178,7 @@ class SSHConnection(Cooperative):
 	try:
 	    t = paramiko.Transport((self.hostname, self.port))
 	    t.connect(username=self.username, password=self.password, hostkey=hostkey)
-	except Exception, e:
+	except Exception as e:
 	    exc_info = sys.exc_info()
 	    info_string = '\n'.join(traceback.format_exception(*exc_info))
 	    print >>self.lastError, '\n%s :: Cannot open connection to %s:%s using username of "%s", Reason: %s' % (ObjectTypeName.objectSignature(self),self.hostname,self.port,self.username,info_string)
@@ -194,7 +194,7 @@ class SSHConnection(Cooperative):
 	if (self.__transport__ is not None):
 	    try:
 		self.__sftp__ = paramiko.SFTPClient.from_transport(self.transport)
-	    except Exception, e:
+	    except Exception as e:
 		exc_info = sys.exc_info()
 		info_string = '\n'.join(traceback.format_exception(*exc_info))
 		print >>self.lastError, '\n%s :: Cannot open client connection to %s:%s using username of "%s", Reason: %s' % (ObjectTypeName.objectSignature(self),self.hostname,self.port,self.username,info_string)
@@ -510,7 +510,7 @@ class SSHConnection(Cooperative):
 		xfer = iBytes / et
 		try:
 		    _callback_(iBytes,iTotal,xfer,et)
-		except Exception, details:
+		except Exception as details:
 		    print >>sys.stderr, '%s' % str(details)
 	
 	try:
@@ -519,7 +519,7 @@ class SSHConnection(Cooperative):
 	    else:
 		try:
 		    callback(0,0,0,0)
-		except Exception, details:
+		except Exception as details:
 		    print >>sys.stderr, '%s :: Cannot use the callback because it has the following problem: "%s".' % (ObjectTypeName.objectSignature(self),str(details))
 		    callback = None
 	    if (callback is not None):

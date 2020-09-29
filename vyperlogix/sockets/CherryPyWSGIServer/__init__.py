@@ -1197,7 +1197,7 @@ class HTTPConnection(object):
                 req.simple_response("400 Bad Request",
                     "The client sent a plain HTTP request, but "
                     "this server only speaks HTTPS on this port.")
-        except Exception, e:
+        except Exception as e:
             if req and not req.sent_headers:
                 req.simple_response("500 Internal Server Error", format_exc())
     

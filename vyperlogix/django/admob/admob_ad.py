@@ -95,7 +95,7 @@ def admob_ad(request, admob_params=HashedFuzzyLists2()):
 		admob_contents = admob_file.read()
 		if admob_contents is None or admob_contents == "":
 			admob_success = False
-	except Exception, e:
+	except Exception as e:
 		admob_success = False
 
 	if not admob_success:

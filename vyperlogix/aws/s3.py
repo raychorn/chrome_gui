@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -79,14 +79,14 @@ class S3Shell(CooperativeClass.Cooperative):
 		    if (callable(self.__callback__)):
 			try:
 			    self.__callback__(self)
-			except Exception, ex:
+			except Exception as ex:
 			    info_string = _utils.formattedException(details=ex)
 			    print >> self.__sysout__, info_string
 	    def onExit():
 		if (callable(self.__onExit__)):
 		    try:
 			self.__onExit__(self)
-		    except Exception, ex:
+		    except Exception as ex:
 			info_string = _utils.formattedException(details=ex)
 			print >> self.__sysout__, info_string
 	    self.__command__ = '"%s" list %s /key:%s /secret:%s' % (self.__S3cmd__,self.__s3_bucketName__,self.__aws_access_key__,self.__aws_secret_access_key__)
@@ -109,14 +109,14 @@ class S3Shell(CooperativeClass.Cooperative):
 		    if (callable(self.__callback__)):
 			try:
 			    self.__callback__(self,lines=self.__lines__)
-			except Exception, ex:
+			except Exception as ex:
 			    info_string = _utils.formattedException(details=ex)
 			    print >> self.__sysout__, info_string
 	    def onExit():
 		if (callable(self.__onExit__)):
 		    try:
 			self.__onExit__(self)
-		    except Exception, ex:
+		    except Exception as ex:
 			info_string = _utils.formattedException(details=ex)
 			print >> self.__sysout__, info_string
 	    self.__command__ = '"%s" put %s "%s" /key:%s /secret:%s /yes' % (self.__S3cmd__,bucketKeyName+('/' if (not str(bucketKeyName).endswith('/')) else ''),fpath,self.__aws_access_key__,self.__aws_secret_access_key__)
@@ -140,14 +140,14 @@ class S3Shell(CooperativeClass.Cooperative):
 		    if (callable(self.__callback__)):
 			try:
 			    self.__callback__(self,lines=self.__lines__)
-			except Exception, ex:
+			except Exception as ex:
 			    info_string = _utils.formattedException(details=ex)
 			    print >> self.__sysout__, info_string
 	    def onExit():
 		if (callable(self.__onExit__)):
 		    try:
 			self.__onExit__(self,fpath=fp)
-		    except Exception, ex:
+		    except Exception as ex:
 			info_string = _utils.formattedException(details=ex)
 			print >> self.__sysout__, info_string
 	    self.__command__ = '"%s" get "%s" "%s" /key:%s /secret:%s' % (self.__S3cmd__,str(bucketKeyName+'/'+s3name).replace('//','/'),fp,self.__aws_access_key__,self.__aws_secret_access_key__)
@@ -173,14 +173,14 @@ class S3Shell(CooperativeClass.Cooperative):
 		    if (callable(self.__callback__)):
 			try:
 			    self.__callback__(self,lines=self.__lines__,items=_items_)
-			except Exception, ex:
+			except Exception as ex:
 			    info_string = _utils.formattedException(details=ex)
 			    print >> self.__sysout__, info_string
 	    def onExit():
 		if (callable(self.__onExit__)):
 		    try:
 			self.__onExit__(self)
-		    except Exception, ex:
+		    except Exception as ex:
 			info_string = _utils.formattedException(details=ex)
 			print >> self.__sysout__, info_string
 	    self.__s3_bucketName__ = bucketName

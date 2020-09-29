@@ -165,7 +165,7 @@ class DjangoManager(Cooperative):
 		#print 'DEBUG: fCheckpoint=%s' % (self.fCheckpoint)
 		try:
 		    self.dCheckpoint = json.loads(''.join(self.fCheckpoint.readlines()))
-		except Exception, ex:
+		except Exception as ex:
 		    print 'DEBUG: ex=%s' % (ex)
 		    self.dCheckpoint = {}
 		finally:
@@ -282,7 +282,7 @@ class DjangoManager(Cooperative):
 	    self.fCheckpoint = open(self.__checkpoint__,'w')
 	    try:
 		self.fCheckpoint.write(json.dumps(self.dCheckpoint))
-	    except Exception, ex:
+	    except Exception as ex:
 		print 'DEBUG: ex=%s' % (_utils.formattedException(details=ex))
 	    finally:
 		self.fCheckpoint.flush()

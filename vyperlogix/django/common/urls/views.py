@@ -277,7 +277,7 @@ def default(request,_get_user=None,domain='localhost',secure_endpoint='http://lo
 		    logging.info('(9) settings.APP_SESSION_KEY=%s' % (settings.APP_SESSION_KEY))
                 django_utils.give_response_session_id_using(request,response,settings.APP_SESSION_KEY);
                 return response
-            except Exception, e:
+            except Exception as e:
 		info_string = _utils.formattedException(details=e)
 		logging.info('%s' % (info_string))
 	    return django_utils.render_main_html(request,browserAnalysis,qryObj,data=_data,is_logging_info=is_logging_info,current_site=_current_site,aid=aid,air_id=air_id,logging=logging,context=context)
@@ -326,7 +326,7 @@ def default(request,_get_user=None,domain='localhost',secure_endpoint='http://lo
 			info_string = _utils.formattedException(details=e)
 			logging.info('%s' % (info_string))
         return django_utils.render_main_html(request,browserAnalysis,qryObj,data=_data,is_logging_info=is_logging_info,current_site=_current_site,aid=aid,air_id=air_id,logging=logging,context=context)
-    except Exception, e:
+    except Exception as e:
         info_string = _utils.formattedException(details=e)
         logging.warning(info_string)
         _content = '<font color="red"><small>%s</small></font>'%('<br/>'.join(info_string.split('\n'))) if (not browserAnalysis.isRunningLocal(request)) else ''

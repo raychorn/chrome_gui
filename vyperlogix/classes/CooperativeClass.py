@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 """Implements a nice syntax for cooperative methods.
 Could be made working for staticmethods and classmethods,
 but who needs them anyway? ;)"""
@@ -26,21 +28,21 @@ class Cooperative:
 if __name__ == "__main__":
     class B(Cooperative):
         def __init__(self):
-            print '(%s).' % str(self.__class__)
+            print_function('(%s).' % str(self.__class__))
         
         def print_(self):
-            print "B",
+            print_function("B"),
     class C(B):
         def __init__(self):
             super.__init__()
-            print '(%s).' % str(self.__class__)
+            print_function('(%s).' % str(self.__class__))
         
         def print_(self, super):
             super.print_()
-            print "C",
+            print_function("C"),
     class D(C):
         def print_(self, super):
             super.print_()
-            print "D",
+            print_function("D"),
     D().print_() # => B C D
 

@@ -45,7 +45,7 @@ class CurrentAssetsProcessMixin():
 	    if (c_list is not None):
 		for item in c_list:
 		    data.append(tuple([str(item['Company_Name__c']).lower()]))
-	except Exception, details:
+	except Exception as details:
 	    self.last_error = _utils.formattedException(details=details)
 	return data
 
@@ -71,7 +71,7 @@ class CurrentAssetsProcessMixin():
 		    contacts = assets.getAccountContacts(aId)
 		    wxParent.append_to_message_Q('\tHas %d Contact%s.' % (len(contacts),'(s)' if (len(contacts) > 1) else ''))
 		    wxParent.acceptContacts(rec,contacts)
-		except Exception, details:
+		except Exception as details:
 		    _details = _utils.formattedException(details=details)
 		    print >>sys.stdout, _details
 		    print >>sys.stderr, _details
@@ -79,7 +79,7 @@ class CurrentAssetsProcessMixin():
 		finally:
 		    self.count += 1
 	    pass
-	except Exception, details:
+	except Exception as details:
 	    _details = _utils.formattedException(details=details)
 	    print >>sys.stdout, _details
 	    print >>sys.stderr, _details
@@ -141,7 +141,7 @@ class CurrentAssetsProcessMixin():
 			assets[item['Asset_Id']] = item['Asset_Name']
 			del item['Asset_Id']
 			del item['Asset_Name']
-		    except Exception, details:
+		    except Exception as details:
 			info_string = _utils.formattedException(details=details)
 			appendText(self.__child_frame.textboxLog,info_string)
 		v[0]['Asset_Ids'] = ','.join(misc.sortCopy([item for item in list(set(assets.keys()))]))

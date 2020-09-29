@@ -65,7 +65,7 @@ class ZoneEditProxy(MagicObject2):
         print '%s :: Searching Naming Service...' % (ObjectTypeName.objectSignature(self))
 	try:
 	    ns = locator.getNS(host=__host__.split(':')[0],port=int(__host__.split(':')[-1]),trace=1)
-	except Exception, e:
+	except Exception as e:
 	    info_string = _utils.formattedException(details=e)
 	    print info_string
 	    sys.exit(1)
@@ -94,7 +94,7 @@ class ZoneEditProxy(MagicObject2):
     def get_objects(self,s):
 	try:
 	    objs = eval(s)
-	except Exception, _details:
+	except Exception as _details:
 	    objs = []
 	    info_string = _utils.formattedException(details=_details)
 	    print >>sys.stderr, info_string

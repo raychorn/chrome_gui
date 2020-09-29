@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -236,7 +236,7 @@ class Runner:
         if (self.options.RUN_AS_DAEMON) or (self.options.cmd_options.daemon):
             try:
                 os.remove(self.options.PIDFILE)
-            except Exception, e:
+            except Exception as e:
                 log = logging.getLogger("webserver.py")
                 log.debug("Can't clean PID file: %s" % self.options.PIDFILE)
                 log.debug(str(e))

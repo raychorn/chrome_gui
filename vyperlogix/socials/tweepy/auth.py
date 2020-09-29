@@ -74,7 +74,7 @@ class OAuthHandler(AuthHandler):
             request.sign_request(self._sigmethod, self._consumer, None)
             resp = urlopen(Request(url, headers=request.to_header()))
             return oauth.OAuthToken.from_string(resp.read())
-        except Exception, e:
+        except Exception as e:
             raise TweepError(e)
 
     def set_request_token(self, key, secret):
@@ -99,7 +99,7 @@ class OAuthHandler(AuthHandler):
             )
 
             return request.to_url()
-        except Exception, e:
+        except Exception as e:
             raise TweepError(e)
 
     def get_access_token(self, verifier=None):
@@ -122,7 +122,7 @@ class OAuthHandler(AuthHandler):
             resp = urlopen(Request(url, headers=request.to_header()))
             self.access_token = oauth.OAuthToken.from_string(resp.read())
             return self.access_token
-        except Exception, e:
+        except Exception as e:
             raise TweepError(e)
 
     def get_username(self):

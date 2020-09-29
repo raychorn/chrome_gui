@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -50,7 +50,7 @@ class GitHubMagicProxy(MagicObject2):
 	s = 'self.__handler__(%s, *args,**kwargs)' % ('[%s]'%(','.join(['"%s"'%(i) for i in items])))
 	try:
 	    results = eval(s,globals(),locals())
-	except Exception, details:
+	except Exception as details:
 	    results = None
 	    print >> sys.stderr, _utils.formattedException(details=details)
 	return results

@@ -8,7 +8,7 @@ import socket
 import types
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -110,7 +110,7 @@ class ExceptionHandler:
                 smtp = mailServer.MailServer(mailServer.development_config)
                 smtp.sendEmail(msg)
                 hasSentEmail = True
-            except Exception, details:
+            except Exception as details:
                 exc_info = sys.exc_info()
                 info_string = '\n'.join(traceback.format_exception(*exc_info))
                 print >> sys.stderr, 'EMAIL_ERROR :: Unable to send email due to "%s\n%s".' % (details,info_string)

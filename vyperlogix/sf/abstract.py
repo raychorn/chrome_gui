@@ -19,7 +19,7 @@ from pyax.sobject.classfactory import ClassFactory
 from vyperlogix.hash import lists
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -107,7 +107,7 @@ class SalesForceAbstract(Cooperative):
 		    fields.append(field)
 		else:
 		    raise SalesForceFieldException('Field with name of "%s" is not present in the SalesForce object named "%s".' % (field,self.object_name))
-	except Exception, _details:
+	except Exception as _details:
 	    info_string = _utils.formattedException(details=_details)
 	    raise SalesForceParmException('Cannot process the field specifications for object named "%s".\n%s' % (self.object_name,info_string))
 	return self.namesCanonicalized(fields)
@@ -242,11 +242,11 @@ class SalesForceAbstract(Cooperative):
 	    try:
 		try:
 		    _types = self.sfQuery.getObjectsFromSOQL(soql,callback=callback)
-		except Exception, details:
+		except Exception as details:
 		    self.__lastError__ = _utils.formattedException(details=details)
 		    return None
 		return _types
-	    except Exception, details:
+	    except Exception as details:
 		self.__lastError__ = _utils.formattedException(details=details)
 	return None
     
@@ -254,7 +254,7 @@ class SalesForceAbstract(Cooperative):
 	try:
 	    self.__save_result = self.factory.create(list_of_schemas)
 	    self.__save_result_isValid = (len(self.save_result) == len(list_of_schemas))
-	except Exception, details:
+	except Exception as details:
 	    self.__lastError__ = _utils.formattedException(details=details)
 	    return []
 	return self.save_result
@@ -264,7 +264,7 @@ class SalesForceAbstract(Cooperative):
 	noErrors = True
 	try:
 	    object_proxy.update()
-	except Exception, details:
+	except Exception as details:
 	    noErrors = False
 	    self.__lastError__ = _utils.formattedException(details=details)
 	return noErrors
@@ -272,7 +272,7 @@ class SalesForceAbstract(Cooperative):
     def retrieveSaveResult(self):
 	try:
 	    return self.factory.retrieveSaveResult(self.save_result)
-	except Exception, details:
+	except Exception as details:
 	    self.__lastError__ = _utils.formattedException(details=details)
 	return []
 

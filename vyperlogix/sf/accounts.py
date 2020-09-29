@@ -17,7 +17,7 @@ except:
 from vyperlogix.sf.abstract import SalesForceAbstract
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -60,7 +60,7 @@ class AccountTreeNode(tinytree.Tree,TinyTreeMixIn):
                     root.addChild(node)
                 else:
                     n.addChild(node)
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
 
@@ -127,7 +127,7 @@ class MagmaAccountTree(Cooperative):
                 accounts = sf_accounts.getAccountById(self.accountId)
                 if (sf_accounts.contains_sf_objects(accounts)):
                     self.__account__ = accounts[0]
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
         if (self.__account__ is None):
@@ -254,7 +254,7 @@ class SalesForceAccounts(SalesForceAbstract):
                     if (lists.isDict(child)) and (len([node for node in tree if (node['Id'] == child['Id'])]) == 0):
                         tree.append(child)
                         self._getAccountTree_(child,tree=tree,skip_ancestors=True)
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
         return tree
@@ -284,7 +284,7 @@ class SalesForceAccounts(SalesForceAbstract):
             for node in tree:
                 root._addChild(AccountTreeNode(node['Id'],node['Name'],node['ParentId']))
             root._addChild(AccountTreeNode(account['Id'],account['Name'],account['ParentId']))
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
         return root

@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -173,7 +173,7 @@ class RemoteScp():
         
         try:
             __sftp__.get(remote, local)
-        except Exception, ex:
+        except Exception as ex:
             print >> sys.stderr, 'ERROR: %s' % (_utils.formattedException(details=ex))
     
         sftp.close()

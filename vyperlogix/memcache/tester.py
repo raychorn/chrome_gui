@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -80,7 +80,7 @@ def __test_using_umemcache__(__host__,verbose=False,timeout=None):
             if (verbose):
                 print 'DONE %s !!!' % (__activity__)
             results = True
-    except Exception, ex:
+    except Exception as ex:
         if (verbose):
             print 'WARNING: %s' % (ex.message)
     return results

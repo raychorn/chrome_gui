@@ -1,5 +1,7 @@
+from __future__ import print_function
+
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -52,7 +54,7 @@ class EnumMetaClass(type):
         if Enum:
             for base in bases:
                 if (not issubclass(base, Enum)):
-                    raise TypeError, "Enumeration base class must be Enum or EnumLazy but not %s." % type(base)
+                    raise(TypeError, "Enumeration base class must be Enum or EnumLazy but not %s." % type(base))
         items = []
         for key, value in dict.items():
             if not key.startswith('_'):
@@ -129,7 +131,7 @@ class EnumMetaClass(type):
                 elif (__is_name__(x,defaults)):
                     default = x
             return None if (default == -1) else default
-        raise ValueError("%r is not a member of %s however (%s) are valid members." % (value, self.name,str(items)))
+        raise(ValueError("%r is not a member of %s however (%s) are valid members." % (value, self.name,str(items))))
 
 class EnumLazyMetaClass(EnumMetaClass):
     def __new__(meta, name, bases, dict):
@@ -144,7 +146,7 @@ class EnumLazyMetaClass(EnumMetaClass):
         if EnumLazy:
             for base in bases:
                 if (not issubclass(base, EnumLazy)):
-                    raise TypeError, "Enumeration base class must be Enum or EnumLazy but not %s." % type(base)
+                    raise(TypeError, "Enumeration base class must be Enum or EnumLazy but not %s." % type(base))
         items = []
         for key, value in dict.items():
             if not key.startswith('_'):
@@ -176,7 +178,7 @@ class EnumLazyMetaClass(EnumMetaClass):
             item = EnumInstance(cls, self.name, value, _val)
             cls._items_.append(item)
             return item
-        raise ValueError("%r is not a member of %s however (%s) are valid members." % (value, self.name,str(items)))
+        raise(ValueError("%r is not a member of %s however (%s) are valid members." % (value, self.name,str(items))))
 
 class EnumInstance(str):
     """Class to represent an enumeration value.
@@ -203,7 +205,7 @@ class EnumInstance(str):
                 self.__value |= val
             assert self.__value == value, '(%s.%s) :: ERROR: Why the freak is the value of "%s" not equal to "%s"; the value that was stated to equate to "%s" cannot be correct according to the actual values from the parent of this %s object.' % (ObjectTypeName.typeName(self),misc.funcName(),self.__value,value,enumname,ObjectTypeName.typeName(self))
         else:
-            print '(%s.%s) :: ERROR: What the freak is the meaning of enumname of "%s" of type "%s".' % (ObjectTypeName.typeName(self),misc.funcName(),enumname,ObjectTypeName.typeName(enumname))
+            print_function('(%s.%s) :: ERROR: What the freak is the meaning of enumname of "%s" of type "%s".' % (ObjectTypeName.typeName(self),misc.funcName(),enumname,ObjectTypeName.typeName(enumname)))
         return self
 
     def name():
@@ -257,12 +259,12 @@ class EnumInstance(str):
             elif (operation == EnumInstance._boolOp_OR):
                 value = self.value | other.value
             else:
-                print '(%s.%s) :: WARNING: Expected operation to be "%s" or "%s" but it is "%s".' % (ObjectTypeName.typeName(self),misc.funcName(),EnumInstance._boolOp_AND,EnumInstance._boolOp_OR,operation)
+                print_function('(%s.%s) :: WARNING: Expected operation to be "%s" or "%s" but it is "%s".' % (ObjectTypeName.typeName(self),misc.funcName(),EnumInstance._boolOp_AND,EnumInstance._boolOp_OR,operation))
             names = self.__names__(value)
             e = cls(self.parent,self.classname,EnumInstance._concat_symbol.join(names),value)
             return e
         else:
-            print '(%s.%s) :: ERROR: Expected other to be of type "%s" but it is of type "%s".' % (ObjectTypeName.typeName(self),misc.funcName(),ObjectTypeName.typeName(self),ObjectTypeName.typeName(other))
+            print_function('(%s.%s) :: ERROR: Expected other to be of type "%s" but it is of type "%s".' % (ObjectTypeName.typeName(self),misc.funcName(),ObjectTypeName.typeName(self),ObjectTypeName.typeName(other)))
         return None
 
     def __and__(self, other):
@@ -272,7 +274,7 @@ class EnumInstance(str):
         return self.__boolOp__(other, EnumInstance._boolOp_OR)
 
     def __repr__(self):
-        return "%s(%s, %s, %s, %s)" % (ObjectTypeName__typeName(self.__class__),`self.classname`, `self.name`,`str(self)`,`self.value`)
+        return("%s(%s, %s, %s, %s)" % (ObjectTypeName__typeName(self.__class__),self.classname, self.name,str(self),self.value))
 
     def __str__(self):
         try:

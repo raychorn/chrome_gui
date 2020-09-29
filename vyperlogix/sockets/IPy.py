@@ -120,7 +120,7 @@ class IPint:
         if type(data) == types.IntType or type(data) == types.LongType:
             self.ip = long(data)
             if ipversion == 0:
-                if self.ip < 0x100000000L:
+                if self.ip < 0x100000000:
                     ipversion = 4
                 else:
                     ipversion = 6
@@ -1003,7 +1003,7 @@ def _parseAddressIPv6(ipstr):
         raise ValueError("%r: Invalid IPv6 address: should have 8 hextets" % ipstr)
 
     # Convert strings to long integer
-    value = 0L
+    value = 0
     index = 0
     for item in items:
         try:
@@ -1052,7 +1052,7 @@ def parseAddress(ipstr):
         ret = long(ipstr[2:], 16)
         if ret > 0xffffffffffffffffffffffffffffffffL:
             raise ValueError, "%r: IP Address can't be bigger than 2^128" % (ipstr)
-        if ret < 0x100000000L:
+        if ret < 0x100000000:
             return (ret, 4)
         else:
             return (ret, 6)

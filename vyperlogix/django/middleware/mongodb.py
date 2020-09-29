@@ -26,12 +26,12 @@ class CheckMongoDb(DjangoServiceMiddleware):
         self.mongodb_service_name = settings.MONGODB_SERVICE_NAME
         try:
             self.response = mongodb.SleepyMongoose(self.mongodb_mongoose).__http_gets__(self.mongodb_test)
-        except Exception, ex:
+        except Exception as ex:
             self.response = None
             logging.warning(_utils.formattedException(details=ex))
         try:
             self.results = mongodb.SleepyMongoose(self.mongodb_mongoose).connect()
-        except Exception, ex:
+        except Exception as ex:
             self.results = None
             logging.warning(_utils.formattedException(details=ex))
         logging.info('self.mongodb_mongoose=%s, self.mongodb_service_name=%s' % (self.mongodb_mongoose,self.mongodb_service_name))

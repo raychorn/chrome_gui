@@ -4,7 +4,7 @@ import time
 _const_issue_callback = '@@@IssueCallback@@@'
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -106,7 +106,7 @@ class parallelBridge():
             if (hasValue):
                 try:
                     val = str(_cmd)
-                except Exception, details:
+                except Exception as details:
                     val = str(details)
             #val = 'OK'
             val = '<root>' + val + '</root>'

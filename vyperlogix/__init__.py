@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -17,13 +17,13 @@ WITH THE USE OR PERFORMANCE OF THIS SOFTWARE !
 
 USE AT YOUR OWN RISK.
 """
-from misc import _utils
+from .misc import _utils
 
-from misc._utils import DeCamelCaseMethods
+from .misc._utils import DeCamelCaseMethods
 
 class Str(str):
     def de_camel_case(self,delim=' ',method=DeCamelCaseMethods.default):
-	return _utils.de_camel_case(self,delim=delim,method=method)
+        return _utils.de_camel_case(self,delim=delim,method=method)
 
 # BEGIN: The following code causes problems for isinstance(foo,str)...
 #import __builtin__

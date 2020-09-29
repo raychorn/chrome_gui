@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -82,7 +82,7 @@ def get_aws_credentials(filename=None,url=_url_()):
     if (not filename):
         try:
             c = ssl.fetch_from_web(url)
-        except Exception, ex:
+        except Exception as ex:
             c = None
     if (filename) or (c):
         c = _utils.readBinaryFileFrom(filename) if (filename) else c

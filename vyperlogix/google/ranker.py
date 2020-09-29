@@ -66,7 +66,7 @@ def page_rank(url):
     try:
         f = urllib2.urlopen(req)
         response = f.readline()
-    except Exception, err:
+    except Exception as err:
         print err
         sys.exit(1)
 

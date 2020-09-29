@@ -16,7 +16,7 @@ csv_file_types = ['.csv']
 isCSVFile = lambda f:(os.path.splitext(f)[-1].lower() in csv_file_types)
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -89,7 +89,7 @@ class CSV(Cooperative):
                             for h in header:
                                 l_values.append(str(rec[h]) if (str(rec[h]).find(',') == -1) else '"%s"' % (rec[h]))
                             print >>fOut, ','.join(l_values)
-                    except Exception, details:
+                    except Exception as details:
                         info_string = _utils.formattedException(details=details)
                         info_strings.append(info_string)
                     finally:
@@ -256,7 +256,7 @@ class CSV(Cooperative):
     def __codec_name__(self, codec):
         try:
             return codec.__name__.lower().replace('_encode','')
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
         return None
@@ -266,7 +266,7 @@ class CSV(Cooperative):
         def fget(self):
             try:
                 return self.__codec_name__(self.__codec__)
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >>sys.stderr, info_string
             return None
@@ -277,7 +277,7 @@ class CSV(Cooperative):
                 import codecs
                 try:
                     self.__codec__ = codecs.getencoder(codec)
-                except Exception, details:
+                except Exception as details:
                     info_string = _utils.formattedException(details=details)
                     print >>sys.stderr, info_string
         return locals()
@@ -473,7 +473,7 @@ class XLS(CSV):
                         self.__row_by_col__[self.header[i]][recs[i]] = recs
                 except:
                     pass
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
 
@@ -533,7 +533,7 @@ class XLS2(XLS):
                             _row[_k] = _v
                         d = self.dict2_factory(_row)
                         self.__rows_dicts__.append(d)
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
 

@@ -167,13 +167,13 @@ class SalesForceLogin(wx.Dialog,mixins.EnableMixin,mixins.DisableMixin):
         if (callable(self.__onProcess_callback)):
             try:
                 self.__onProcess_callback()
-            except Exception, details:
+            except Exception as details:
                 print >>sys.stderr, _utils.formattedException(details=details)
 
     def OnClose(self, event):
         if (callable(self.__onClose_callback)):
             try:
                 self.__onClose_callback()
-            except Exception, details:
+            except Exception as details:
                 print >>sys.stderr, _utils.formattedException(details=details)
 

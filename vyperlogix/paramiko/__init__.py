@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -64,7 +64,7 @@ class ParamikoSFTP(Cooperative):
         try:
             self.__sock__ = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__sock__.connect((self.hostname, self.port))
-        except Exception, _details:
+        except Exception as _details:
             self.logger.exception('*** Connect failed !!')
             sys.exit(1)
 
@@ -117,7 +117,7 @@ class ParamikoSFTP(Cooperative):
                 self.channel.close()
                 self.transport.close()
         
-        except Exception, _details:
+        except Exception as _details:
             self.logger.exception('Transport closed due to some kind of error.')
             try:
                 self.transport.close()

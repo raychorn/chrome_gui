@@ -44,7 +44,7 @@ def render_captcha_form(request,form_name=None,font_name=None,font_size=18,choic
             imghash = ''
             tempname = ''
             imgtext = ''
-    except Exception, e:
+    except Exception as e:
         return _utils.formattedException(details=e)
 
     if (misc.isString(form_name)):

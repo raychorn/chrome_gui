@@ -4,7 +4,7 @@ from vyperlogix.enum import Enum
 from vyperlogix.misc import _utils
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -50,7 +50,7 @@ def zipper(top,archive_path,archive_type=ZipType.zip,_iv=None,passPhrase=None,se
 	    if os.path.isfile(path):
 		try:
 		    zp.write(path, path[len(root):])
-		except Exception, ex:
+		except Exception as ex:
 		    print >>fOut, 'ERROR: root=%s, len(root)=%s, path=%s\n%s' % (root,len(root),path,_utils.formattedException(details=ex))
 	    elif os.path.isdir(path) and os.path.islink(path):
 		os.path.walk(path, add_to_zip, (zp, path))
@@ -139,7 +139,7 @@ def unzipper(archive_path,dest,archive_type=ZipType.zip,_iv=None,passPhrase=None
 	    #print >>sys.stdout, 'BEGIN: zp.extractall(path="%s")' % (dest)
 	    #zp.extractall(path=dest)
 	    #print >>sys.stdout, 'END:   zp.extractall(path="%s")' % (dest)
-	#except Exception, details:
+	#except Exception as details:
 	    #print >>sys.stdout, 'ERROR: Cannot read the file named "%s" due to "%s".' % (archive_path,str(details))
 	    #import traceback
 	    #exc_info = sys.exc_info()
@@ -188,7 +188,7 @@ def unzipper(archive_path,dest,archive_type=ZipType.zip,_iv=None,passPhrase=None
 		#freeRam2 = SmartFuzzyObject(explode_ram(list(_freeRam2)))
 		#print >>sys.stdout, '%s of %s --> %s, RAM: %s to %s, Used: %s' % (i,n,fn,report_ram(_freeRam1),report_ram(_freeRam2),report_ram(diff_ram(freeRam1,freeRam2)))
 		#i += 1
-    except Exception, details:
+    except Exception as details:
 	print >>sys.stderr, 'ERROR: Cannot read the file named "%s" due to "%s".' % (archive_path,str(details))
 	import traceback
 	exc_info = sys.exc_info()

@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -44,7 +44,7 @@ def _set_contents_from_file(bucket_name,fileObj,reduced_redundancy=True,callback
             aKey = aBucket.new_key(key_name=fileObj.name)
             _metadata = _utils.explain_stat(os.stat(fileObj.name), asDict=True)
             aKey.set_contents_from_file(fileObj, cb=callback, reduced_redundancy=reduced_redundancy)
-    except Exception, e:
+    except Exception as e:
 	info_string = formattedException(details=ex)
         pass
     return aKey

@@ -1,7 +1,7 @@
 from vyperlogix.enum import Enum
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -48,7 +48,7 @@ if __name__ == '__main__':
             print 'There is no Color.orange.'
         try:
             print 'Color(4)=(%s)' % (Color(4))
-        except Exception, details:
+        except Exception as details:
             print 'There is no Color(4) due to "%s".' % str(details)
         x = 'Color.%s' % 'red'
         try:

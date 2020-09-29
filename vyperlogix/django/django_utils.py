@@ -216,7 +216,7 @@ def get_json_vars(request):
 	for b in buckets:
 	    for k,v in b.iteritems():
 		handle_key_and_value(so,k,v)
-    except Exception, ex:
+    except Exception as ex:
 	info_string = _utils.formattedException(details=ex)
 	pass
     return so
@@ -431,7 +431,7 @@ def paginate(items,items_name,selector,pageNo=1,numPerPage=10,maxPages=15,callba
         try:
             if (callable(callback)):
                 callback(item,articles,items_name,selector)
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             return info_string
     if (totalNum > numPerPage):

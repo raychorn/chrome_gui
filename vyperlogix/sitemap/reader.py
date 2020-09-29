@@ -8,7 +8,7 @@ from xml.dom import minidom
 from vyperlogix.misc import _utils
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -52,7 +52,7 @@ class ModelSitemap:
                         pass
                 for n in nodes:
                     items.append(n)
-        except Exception, e:
+        except Exception as e:
             info_string = _utils.formattedException(details=e)
             items.append(info_string)
             items.append(str(file_feed))

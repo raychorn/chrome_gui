@@ -13,7 +13,7 @@ def smaato_ad(request,alternate_content=''):
 		smaato_contents = smaato_file.read()
 		if smaato_contents is None or smaato_contents == "":
 			smaato_success = False
-	except Exception, e:
+	except Exception as e:
 		smaato_success = False
 
 	if not smaato_success:

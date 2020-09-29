@@ -27,19 +27,19 @@ def grid_handler(request,cls_or_object,func=None):
                 items = cls_or_object.objects.order_by(sidx) if (class_ == symbol_ModelBase) else cls_or_object.order_by(sidx)
                 if sord == 'desc':
                     items = misc.reverse(items)
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >>sys.stderr, info_string
         elif (isinstance(cls_or_object,list)):
             try:
                 items = cls_or_object
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >>sys.stderr, info_string
         else:
             try:
                 items = [cls_or_object]
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >>sys.stderr, info_string
     
@@ -55,7 +55,7 @@ def grid_handler(request,cls_or_object,func=None):
 
         cells = [ func(r) if (callable(func)) else r for r in items[start:rows] ]
         results = [ {'cell' : c } for c in cells ]
-    except Exception, details:
+    except Exception as details:
         results = []
         count = _real_count(results)
         info_string = _utils.formattedException(details=details)

@@ -134,7 +134,7 @@ def serve(host, port, filename):
                 msg = None
     except (SystemExit, KeyboardInterrupt):
         log.info("pypopper stopped")
-    except Exception, ex:
+    except Exception as ex:
         log.critical("fatal error", exc_info=ex)
     finally:
         sock.shutdown(socket.SHUT_RDWR)

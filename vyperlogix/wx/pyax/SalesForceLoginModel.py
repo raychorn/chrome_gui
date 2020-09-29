@@ -41,7 +41,7 @@ class SalesForceLoginModel(Cooperative):
 	    if (callable(self.__callback_developers_check__)):
 		try:
 		    val = self.__callback_developers_check__()
-		except Exception, details:
+		except Exception as details:
 		    print _utils.formattedException(details=details)
             return val
         return locals()
@@ -163,7 +163,7 @@ class SalesForceLoginModel(Cooperative):
 	    self.__sfdc__ = Connection.connect(self.username, self.password, context=self.sfContext)
 	    if (isVerbose):
 		print '(%s) :: self.__sfdc__ is "%s".' % (ObjectTypeName.objectSignature(self),self.__sfdc__)
-	except Exception, details:
+	except Exception as details:
 	    info_string = _utils.formattedException(details=details)
 	    self.__lastError__ = info_string
 	    try:

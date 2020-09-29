@@ -27,7 +27,7 @@ def get_qry_by_parts(qry,callback=None):
                     callback(items)
                 finally:
                     items = []
-    except Exception, details:
+    except Exception as details:
         print >>sys.stderr, _utils.formattedException(details=details)
     return items
 

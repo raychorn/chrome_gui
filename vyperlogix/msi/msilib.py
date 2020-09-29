@@ -419,7 +419,7 @@ class Directory:
                 file = prefix
             try:
                 assert file not in self.short_names
-            except Exception, details:
+            except Exception as details:
                 print '(make_short) :: ERROR "%s" because file (%s) is not unique.' % (str(details),file)
         else:
             prefix = prefix[:6]

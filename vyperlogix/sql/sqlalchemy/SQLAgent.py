@@ -73,7 +73,7 @@ class SQLAgent(Cooperative):
 		    recs.append(SmartObject2(d))
 		except AttributeError:
 		    recs.append(instance_as_SmartObject(item))
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	return recs
@@ -85,7 +85,7 @@ class SQLAgent(Cooperative):
 		_mapper = mapper(cls, tbl, properties=properties, **kwargs) if (cls is not None) and (tbl is not None) else None
 		if (_mapper is not None):
 		    self.__mappers.append(_mapper)
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	    
@@ -98,7 +98,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
             self.session.add(obj)
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	    
@@ -106,7 +106,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
             self.session.update(obj)
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	    
@@ -114,7 +114,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
             self.session.delete(obj)
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	    
@@ -122,7 +122,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
             self.session.commit()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
     
@@ -130,7 +130,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
             self.session.begin()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
     
@@ -138,7 +138,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
             self.session.flush()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
     
@@ -146,7 +146,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
             self.session.close()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
     
@@ -157,7 +157,7 @@ class SQLAgent(Cooperative):
 	self.__lastError__ = ''
         try:
 	    return self.session.query(self.classObj).all()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	return []
@@ -182,13 +182,13 @@ class SQLAgent(Cooperative):
         query.first()
         sql>>> try:  
         ...     user = query.one() 
-        ... except Exception, e: 
+        ... except Exception as e: 
         ...     print e
         Multiple rows were found for one()
         
         sql>>> try:
         ...     user = query.filter(User.id == 99).one() 
-        ... except Exception, e: 
+        ... except Exception as e: 
         ...     print e
         No row was found for one()
         sql>>> for user in session.query(User).filter("id<224").order_by("id").all():
@@ -198,7 +198,7 @@ class SQLAgent(Cooperative):
         try:
 	    if (callable(lamda_clause)):
 		return self.session.query(self.classObj).filter(lamda_clause(self.classObj))
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
         return []
@@ -221,13 +221,13 @@ class SQLAgent(Cooperative):
         query.first()
         sql>>> try:  
         ...     user = query.one() 
-        ... except Exception, e: 
+        ... except Exception as e: 
         ...     print e
         Multiple rows were found for one()
         
         sql>>> try:
         ...     user = query.filter(User.id == 99).one() 
-        ... except Exception, e: 
+        ... except Exception as e: 
         ...     print e
         No row was found for one()
         sql>>> for user in session.query(User).filter("id<224").order_by("id").all():
@@ -237,7 +237,7 @@ class SQLAgent(Cooperative):
         try:
 	    if (callable(lamda_clause)):
 		return self.query(lamda_clause).all()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
         return []
@@ -246,13 +246,13 @@ class SQLAgent(Cooperative):
         '''lamda_clause can be a lamda or function that accepts one argument that is the classObj that was passed-in when this object was created.
         sql>>> try:  
         ...     user = query.one() 
-        ... except Exception, e: 
+        ... except Exception as e: 
         ...     print e
         Multiple rows were found for one()
         
         sql>>> try:
         ...     user = query.filter(User.id == 99).one() 
-        ... except Exception, e: 
+        ... except Exception as e: 
         ...     print e
         No row was found for one()
         '''
@@ -260,7 +260,7 @@ class SQLAgent(Cooperative):
         try:
 	    if (callable(lamda_clause)):
 		return self.query(lamda_clause).one()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
         return None
@@ -273,7 +273,7 @@ class SQLAgent(Cooperative):
         try:
 	    if (callable(lamda_clause)):
 		return self.query(lamda_clause).first()
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
         return None
@@ -410,7 +410,7 @@ class SQLAgentMultiSession(SQLAgent):
 	    session_id = uuid.uuid4()
 	    self.__sessions__[session_id] = Session()
 	    return session_id
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	return None
@@ -424,7 +424,7 @@ class SQLAgentMultiSession(SQLAgent):
 	    sess = self.__sessions__[session_id]
 	    if (sess is not None):
 		self.session = sess
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
 	    
@@ -432,7 +432,7 @@ class SQLAgentMultiSession(SQLAgent):
 	self.__lastError__ = ''
         try:
             del self.__sessions__[session_id]
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    self.__lastError__ = _utils.formattedException(details=details)
     

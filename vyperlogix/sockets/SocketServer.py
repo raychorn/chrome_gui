@@ -15,7 +15,7 @@ from vyperlogix.misc import hex as __hex__
 from vyperlogix.sockets.ConnectionHandle import DataFormat
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -85,7 +85,7 @@ class SocketServer():
         if (self.isCallbackValid()):
             try:
                 val = self.callBack(self,connHandle,_data)
-            except Exception, details:
+            except Exception as details:
                 print >>sys.stderr, '(__callback__) :: ERROR.2 in %s due to "%s"\n._data=(%s)\nsconnHandle.isRunning=(%s)' % (str(self.__class__),str(details),_data,connHandle.isRunning)
                 val = str(details)
         return val
@@ -98,7 +98,7 @@ class SocketServer():
                     _data += '\x00'
                 num = connHandle.channel.send(_data)
                 _data = _data[num:]
-        except Exception, details:
+        except Exception as details:
             if (details[-1].find('connection abort') > -1):
                 if (connHandle.dropConnectionOnErrors):
                     connHandle.server.shutdown(connHandle)
@@ -135,7 +135,7 @@ class SocketServer():
                     connHandle.server.shutdown(connHandle)
                 else:
                     print >>sys.stderr, '(processData).5 Connection Termination Inhibited due to connHandle.restart (%s)!' % (connHandle.restart)
-        except Exception, details:
+        except Exception as details:
             print >>sys.stderr, '(processData).Error "%s".' % (str(details))
 
     @threadpool.threadify(__Q__)
@@ -159,7 +159,7 @@ class SocketServer():
                     connHandle.server.processData(connHandle,data)
                 print >>sys.stderr, '(handleConnection).3 __Q__.isRunning=(%s)' % (SocketServer.__Q__.isRunning)
                 connHandle.channel.close()
-        except Exception, details:
+        except Exception as details:
             print >>sys.stderr, '(handleConnection).Error "%s".' % (str(details))
             ex = str(details)
             if (ex.find('Connection reset by peer') > -1) or (ex.find('forcibly closed by the remote host') > -1):
@@ -224,7 +224,7 @@ class SocketServer():
         if (self.ipAddr in self.acceptConnectionsFrom):
             try:
                 connHandle.socket.bind( ( self.ipAddr, self.port) )
-            except Exception, details:
+            except Exception as details:
                 print >>sys.stderr, 'ERROR in startup() due to "%s".  Reason is probably due to the port "%s" being taken by another process.' % (str(details),self.port)
                 return
             if (connectionTimeout > 0):

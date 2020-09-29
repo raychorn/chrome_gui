@@ -15,12 +15,12 @@ class DisableMixin():
                 for ww in w.GetChildren():
                     try:
                         ww.Disable()
-                    except Exception, details:
+                    except Exception as details:
                         print >>sys.stderr, _utils.formattedException(details=details)
             except:
                 try:
                     w.Disable()
-                except Exception, details:
+                except Exception as details:
                     print >>sys.stderr, _utils.formattedException(details=details)
 
 class EnableMixin():	
@@ -30,12 +30,12 @@ class EnableMixin():
                 for ww in w.GetChildren():
                     try:
                         ww.Enable()
-                    except Exception, details:
+                    except Exception as details:
                         print >>sys.stderr, _utils.formattedException(details=details)
             except:
                 try:
                     w.Enable()
-                except Exception, details:
+                except Exception as details:
                     print >>sys.stderr, _utils.formattedException(details=details)
 
 class ListCtrlSelections():
@@ -144,7 +144,7 @@ class ProgressDialogMixin():
 	if (not self.isDialogClosed):
 	    try:
 		self.gauge_panel.closeDialog()
-	    except Exception, details:
+	    except Exception as details:
 		info_string = _utils.formattedException(details=details)
 		print >> self.log, info_string
 	    finally:
@@ -152,7 +152,7 @@ class ProgressDialogMixin():
 		if (callable(self.__onProcessingDone)):
 		    try:
 			self.__onProcessingDone()
-		    except Exception, details:
+		    except Exception as details:
 			info_string = _utils.formattedException(details=details)
 			print >> self.log, info_string
 		    finally:
@@ -172,7 +172,7 @@ class ProgressDialogMixin():
 		if (callable(self.__callback_progressDialog_updated)):
 		    try:
 			self.__callback_progressDialog_updated()
-		    except Exception, details:
+		    except Exception as details:
 			info_string = _utils.formattedException(details=details)
 			print >> self.log, info_string
 
@@ -197,7 +197,7 @@ class ProgressDialogMixin():
 		self.__onProcessingDone = callback_onProcessingDone
 	    if (callable(callback_timer_end_condition)):
 		self.timer_end_condition = callback_timer_end_condition
-	except Exception, details:
+	except Exception as details:
 	    info_string = _utils.formattedException(details=details)
 	    print >> self.log, info_string
     
@@ -240,7 +240,7 @@ class MessageQ_Mixin():
 	    msg = self.messageQ.get(timeout=5)
 	    try:
 		print >>self.log, msg
-	    except Exception, details:
+	    except Exception as details:
 		info_string = _utils.formattedException(details=details)
 		print >> sys.stderr, info_string
 	    self.messageQ.task_done()
@@ -277,11 +277,11 @@ class SalesForceLogin_Mixin():
 		if (callable(self.__callback_onProcess)):
 		    try:
 			self.__callback_onProcess()
-		    except Exception, details:
+		    except Exception as details:
 			_details = _utils.formattedException(details)
 			print >>sys.stderr, _details
 			wx_PopUp_Dialog(parent=self.parent,msg=_details,title='ERROR',styles=wx.ICON_INFORMATION | wx.CANCEL)
-	except Exception, details:
+	except Exception as details:
 	    _details = _utils.formattedException(details)
 	    print >>sys.stderr, _details
 	    wx_PopUp_Dialog(parent=self.parent,msg=_details,title='ERROR',styles=wx.ICON_INFORMATION | wx.CANCEL)
@@ -299,7 +299,7 @@ class SalesForceLogin_Mixin():
 	    if (callable(self.__callback_onClose)):
 		try:
 		    self.__callback_onClose()
-		except Exception, details:
+		except Exception as details:
 		    _details = _utils.formattedException(details)
 		    print >>sys.stderr, _details
 		    wx_PopUp_Dialog(parent=self.parent,msg=_details,title='ERROR',styles=wx.ICON_INFORMATION | wx.CANCEL)

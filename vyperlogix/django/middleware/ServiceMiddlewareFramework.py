@@ -40,6 +40,6 @@ class DjangoServiceMiddleware(object):
                 callback(service_name)
             else:
                 logging.error('Not running in Windows or no callback was used so someone needs to write some code.')
-        except Exception, ex:
+        except Exception as ex:
             logging.warning(_utils.formattedException(details=ex))
     

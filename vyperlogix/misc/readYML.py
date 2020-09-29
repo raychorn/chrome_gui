@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -39,7 +39,7 @@ class ymlObject():
 	    a = self.attrNamed(name)
 	    if (a != None):
 		_value = a.value
-	except Exception, details:
+	except Exception as details:
 	    print 'ERROR in determining the "%s" due to (%s)' % (name,str(details))
 	return _value
         
@@ -112,7 +112,7 @@ class ymlReader(object):
         isError = False
         try:
             fhand = open(self.fname, 'r')
-        except Exception, details:
+        except Exception as details:
             print 'ERROR - (%s)' % str(details)
             isError = True
         if (isError == False):

@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -122,7 +122,7 @@ def xtea_encrypt(key,block,n=32,endian="!"):
     """
     v0,v1 = struct.unpack(endian+"2L",block)
     k = struct.unpack(endian+"4L",key)
-    sum,delta,mask = 0L,0x9e3779b9L,0xffffffffL
+    sum,delta,mask = 0,0x9e3779b9,0xffffffff
     for round in range(n):
         v0 = (v0 + (((v1<<4 ^ v1>>5) + v1) ^ (sum + k[sum & 3]))) & mask
         sum = (sum + delta) & mask
@@ -574,7 +574,7 @@ class PickledHash(CooperativeClass.Cooperative):
                     val = d_val
             elif (self.isPickleMethodUseCerealizer):
                 val = cerealizer.loads(val)
-        except Exception, details:
+        except Exception as details:
             val = 'UNKNOWN value for key (%s) of type "%s" due to ERROR "%s".' % (key,str(key.__class__),str(details))
         return val
 
@@ -983,7 +983,7 @@ def openPickledHashBasedOnFilename(filename, method=PickleMethods.none):
                 try:
                     s = '%s(filename)' % (className)
                     _obj = eval(s)
-                except Exception, details:
+                except Exception as details:
                     info_string = str(details)
         else:
             raise ValueError('(%s) :: Cannot figure-out the class name based on "%s", recommend working this out on you own because you seemed to have written some bad code or maybe "%s".' % (misc.funcName(),_tag,info_string))
@@ -998,7 +998,7 @@ def put_data(_fname,key,value,fOut=None,isUnique=True):
         if (isUnique) and (dbx.has_key(key)):
             del dbx[key]
         dbx[key] = value
-    except Exception, details:
+    except Exception as details:
         from vyperlogix.misc import _utils
         fOut = sys.stderr if (fOut is None) else fOut
         print >>fOut, _utils.formattedException(details)
@@ -1012,7 +1012,7 @@ def get_data(_fname,key,fOut=None,isUnique=True):
         value = dbx[key]
         if (isUnique):
             value = value if (not misc.isList(value)) else None if (len(value) == 0) else value[0]
-    except Exception, details:
+    except Exception as details:
         from vyperlogix.misc import _utils
         fOut = sys.stderr if (fOut is None) else fOut
         print >>fOut, _utils.formattedException(details)

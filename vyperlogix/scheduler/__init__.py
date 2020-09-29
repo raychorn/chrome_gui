@@ -19,7 +19,7 @@ def threaded_job_proxy(self,task,job):
     try:
         if (callable(task)):
             task()
-    except Exception, ex:
+    except Exception as ex:
         was_exception = True
         if (self.logger):
             self.logger.exception('Scheduler failed to execute %s.' % (job))
@@ -48,7 +48,7 @@ def threaded_job_exec(self,task,job):
 was_exception = False
 try:
     %s
-except Exception, ex:
+except Exception as ex:
     was_exception = True
     if (logger):
         logger.exception('Scheduler failed to execute %%s.' %% (job))
@@ -70,7 +70,7 @@ finally:
                 logger.exception('Something went wrong with the updater_callback, programmer check your logic !!!')
         ''' % (task)
         exec(__task__,{'logger':self.logger,'job':job,'updater_callback':self.updater_callback},{})
-    except Exception, ex:
+    except Exception as ex:
         was_exception = True
         if (self.logger):
             self.logger.exception('Scheduler failed to execute %s.' % (job))

@@ -23,7 +23,7 @@ def getPathFromShortcut(lnkPath):
 
         return shortcut.GetPath(shell.SLGP_UNCPRIORITY)
 
-    except Exception, details:
+    except Exception as details:
         print >>sys.stderr, '(getPathFromShortcut).1 :: ERROR due to "%s".' % str(details)
 
 def __makeWindowsShortcut(shortcut,targetPath,workingPath,description,iconLocation):
@@ -55,7 +55,7 @@ def makeWindowsShortcut(lnkPath,targetPath,workingPath,description,iconLocation)
             persist_file.Save(lnkPath, 0)
         else:
             print >>sys.stderr, '(makeWindowsShortcut).2 :: ERROR - Cannot make a shortcut to a non-extant path which is "%s".' % targetPath
-    except Exception, details:
+    except Exception as details:
         print >>sys.stderr, '(makeWindowsShortcut).1 :: ERROR due to "%s".' % str(details)
 
 def updateWindowsShotcut(lnkPath,targetPath,workingPath,description,iconLocation):
@@ -72,7 +72,7 @@ def updateWindowsShotcut(lnkPath,targetPath,workingPath,description,iconLocation
         __makeWindowsShortcut(shortcut,targetPath,workingPath,description,iconLocation)
 
         persist_file.Save(lnkPath, 0)
-    except Exception, details:
+    except Exception as details:
         print >>sys.stderr, '(updateWindowsShotcut).1 :: ERROR due to "%s".' % str(details)
 
 def updateWindowsShortcut(lnkPath,targetPath,workingPath,description,iconLocation):

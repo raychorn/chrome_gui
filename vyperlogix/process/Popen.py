@@ -201,7 +201,7 @@ class Shell(Cooperative):
             if (callable(fOut)):
                 try:
                     fOut(recv_some(self.proc))
-                except Exception, details:
+                except Exception as details:
                     info_string = _utils.formattedException(details=details)
                     print >> sys.stdout, info_string
             else:
@@ -228,7 +228,7 @@ class Shell(Cooperative):
 		if (callable(fOut)):
 		    try:
 			fOut(os.linesep.join(__lines__))
-		    except Exception, details:
+		    except Exception as details:
 			info_string = _utils.formattedException(details=details)
 			print >> _target_[0:2], info_string
 		else:
@@ -238,7 +238,7 @@ class Shell(Cooperative):
 		callee = self.__delayed__.pop()
 		try:
 		    callee()
-		except Exception, details:
+		except Exception as details:
 		    info_string = _utils.formattedException(details=details)
 		    print >> _target_[0:2], info_string
         if (isExit):
@@ -258,7 +258,7 @@ class Shell(Cooperative):
             if (callable(self.fOut)):
                 try:
                     self.fOut(recv_some(self.proc))
-                except Exception, details:
+                except Exception as details:
                     info_string = _utils.formattedException(details=details)
                     print >> _target_[0:2], info_string
             else:
@@ -279,7 +279,7 @@ class Shell(Cooperative):
 		    if (data is not None) and (len(data) > 0):
 			try:
 			    self.fOut(data)
-			except Exception, details:
+			except Exception as details:
 			    info_string = _utils.formattedException(details=details)
 			    print >> _target_[0:2], info_string
 		else:
@@ -294,7 +294,7 @@ class Shell(Cooperative):
         if (callable(self.__onExit__)):
             try:
                 self.__onExit__()
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >> sys.stderr, info_string
 

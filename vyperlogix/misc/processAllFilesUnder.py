@@ -1,7 +1,7 @@
 import os
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -29,9 +29,9 @@ def processAllFilesUnder(top,action=None,tag=''):
             if (str(action.__class__).find("'function'") > -1):
                 try:
                     action(root,dirs,files,tag)
-                except Exception, details:
+                except Exception as details:
                     print '(processAllFilesUnder) :: ERROR.2 :: (%s).' % (str(details))
-    except Exception, details:
+    except Exception as details:
         print '(processAllFilesUnder) :: ERROR.1 :: (%s).' % (str(details))
 
 def copyOSFileFromTo(source,dest):
@@ -51,9 +51,9 @@ def copyAllFilesUnderTo(source,target,action=None):
                 if (str(action.__class__).find("'function'") > -1):
                     try:
                         action(srcFName,dstFName)
-                    except Exception, details:
+                    except Exception as details:
                         print '(copyAllFilesUnderTo) :: ERROR.2 :: (%s).' % (str(details))
                 else:
                     copyOSFileFromTo(srcFName,dstFName)
-    except Exception, details:
+    except Exception as details:
         print '(copyAllFilesUnderTo) :: ERROR.1 :: (%s).' % (str(details))

@@ -35,7 +35,7 @@ class JSONParser(Parser):
     def parse(self, method, payload):
         try:
             json = self.json_lib.loads(payload)
-        except Exception, e:
+        except Exception as e:
             raise TweepError('Failed to parse JSON payload: %s' % e)
 
         if isinstance(json, dict) and 'previous_cursor' in json and 'next_cursor' in json:

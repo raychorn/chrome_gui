@@ -4,7 +4,7 @@ from threading import Thread
 import threading
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -56,7 +56,7 @@ class ThreadQueue(Queue):
             try:
                 func, args, kwargs = self.get()
                 func(*args, **kwargs)
-            except Exception, details:
+            except Exception as details:
 		import traceback
                 print >>sys.stderr, '(%s._worker).Error :: "%s".' % (self.__class__,str(details))
 		print >>sys.stderr, traceback.format_exc()

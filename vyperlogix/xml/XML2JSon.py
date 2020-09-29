@@ -9,7 +9,7 @@ from vyperlogix.classes import CooperativeClass
 from xml.dom.minidom import parse, parseString
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -131,7 +131,7 @@ class XML2JSon(CooperativeClass.Cooperative):
 		__d = misc._unpack_(d[aChild.nodeName])
 		if (__d.has_key(aChild.nodeName)) and (len(list(set(__d.keys()) - set([aChild.nodeName]))) == 0):
 		    d = __d
-	    except Exception, e:
+	    except Exception as e:
 		print 'ERROR', _utils.formattedException(details=e)
 	if (self.verbose):
 	    print '='*40
@@ -169,7 +169,7 @@ class XMLConversionProxy(MagicObject2):
 	s = 'self.proxy.%s(*args,**kwargs)' % (self.n.pop())
 	try:
 	    objects = eval(s)
-	except Exception, details:
+	except Exception as details:
 	    objects = None
 	    info_string = _utils.formattedException(details=details)
 	    print 'ERROR', info_string

@@ -76,7 +76,7 @@ class Service(win32serviceutil.ServiceFramework):
             self.log('wait')
             win32event.WaitForSingleObject(self.stop_event, win32event.INFINITE)
             self.log('done')
-        except Exception, x:
+        except Exception as x:
             self.log('Exception : %s' % x)
             self.SvcStop()
     def SvcStop(self):
@@ -123,7 +123,7 @@ def instart(cls, name, display_name=None, stay_alive=True):
             cls._svc_name_
         )
         print 'Start ok'
-    except Exception, x:
+    except Exception as x:
         print str(x)
         
 if (__name__ == '__main__'):

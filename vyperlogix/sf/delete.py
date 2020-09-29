@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -29,7 +29,7 @@ def deleteSalesForceObjects(sfdc,list_of_ids):
 	    try:
 		delete_result = sfdc.delete(list_of_ids)
 		deleted_ids = sfdc.resultToIdList(delete_result, success_status=True)
-	    except Exception, details:
+	    except Exception as details:
 		exc_info = sys.exc_info()
 		info_string = '\n'.join(traceback.format_exception(*exc_info))
 		info_string = '%s :: Cannot process, Reason: %s\n%s' % (misc.funcName(),str(details),info_string)

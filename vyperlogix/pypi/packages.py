@@ -7,7 +7,7 @@ from vyperlogix.misc import _utils
 from vyperlogix.hash import lists
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -68,7 +68,7 @@ def get_packages(browser,url,username,password,logging=None):
 		    dd = d[d.keys()[0]]
 		    if (dd is not None) and (misc.isString(str(dd['name']) if (dd['name'] is not None) else dd['name'])):
 			packages.append(_datum)
-    except Exception, e:
+    except Exception as e:
         info_string = _utils.formattedException(details=e)
         if (logging is not None):
             logging.warning(info_string)
@@ -107,7 +107,7 @@ def get_package_details2(browser,_url,url,logging=None):
 	    else:
 		try:
 		    d[d_attrs['name']] = d_attrs['value']
-		except Exception, e:
+		except Exception as e:
 		    info_string = _utils.formattedException(details=e)
 		    pass
 	return d,form.attrs
@@ -136,7 +136,7 @@ def get_package_details(browser,_url,url,logging=None):
 		    url, d, details = _datum
 		    url = '%s%s' % (_url,url)
 		    return get_package_details2(browser,_url,url,logging=logging)
-	except Exception, e:
+	except Exception as e:
 	    info_string = _utils.formattedException(details=e)
 	    pass
     return _d,form_attrs

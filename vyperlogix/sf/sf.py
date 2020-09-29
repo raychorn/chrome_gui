@@ -9,7 +9,7 @@ from vyperlogix.misc import ObjectTypeName
 from vyperlogix.classes import SmartObject
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -58,7 +58,7 @@ class SalesForceBaseQuery(Cooperative):
                 v = ret[k]
                 for vk in v.keys():
                     d[vk] = v[vk]
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    info_string = _utils.formattedException(details=details)
             logging.warning(info_string)
@@ -137,7 +137,7 @@ class SalesForceQuery(Cooperative):
 		if (not self.contains_sf_objects(objects)):
 		    objects = [SmartObject.SmartObject(objects[0])]
                 return objects
-        except Exception, details:
+        except Exception as details:
 	    from vyperlogix.misc import _utils
 	    info_string = _utils.formattedException(details=details)
 	    self.__lastError__ = info_string

@@ -52,7 +52,7 @@ class Log(Cooperative):
 		except:
 		    pass
                 self.f.write(s)
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 logging.warning(info_string)
             
@@ -78,7 +78,7 @@ class Log(Cooperative):
                 try:
                     os.remove(f)
                     logging.info('(%s) :: Removed "%s".' % (misc.funcName(),f))
-		except Exception, details:
+		except Exception as details:
 		    info_string = _utils.formattedException(details=details)
 		    logging.warning(info_string)
 		
@@ -103,14 +103,14 @@ class Log(Cooperative):
         logging.info('Closing Log for "%s".' % (self.logFileName))
 	try:
 	    self.f.close()
-	except Exception, details:
+	except Exception as details:
 	    info_string = _utils.formattedException(details=details)
 	    logging.warning(info_string)
 
     def flush(self):
 	try:
 	    self.f.flush()
-	except Exception, details:
+	except Exception as details:
 	    info_string = _utils.formattedException(details=details)
 	    logging.warning(info_string)
 

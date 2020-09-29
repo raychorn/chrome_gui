@@ -2,7 +2,7 @@ import time
 import sys
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -65,7 +65,7 @@ def ioTimeAnalysis(iters=None,callback=None):
             print '(ioTimeAnalysis) :: Category: "%s" = (%s)%s' % (k,d[0],_tpi)
             if (callable(callback)):
                 callback(category=k,elapsed=d[0])
-        except Exception, details:
+        except Exception as details:
             from vyperlogix import misc
             info_string = misc.formattedException(details=details)
             print >>sys.stderr, info_string

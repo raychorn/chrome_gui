@@ -21,7 +21,7 @@ from django.utils.datastructures import SortedDict as SortedDictFromList
 from vyperlogix.mail.validateEmail import validateEmail
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -246,7 +246,7 @@ class DjangoForm(Cooperative):
 			isError = False
 			try:
 			    aField.value = eval(aField.value)
-			except Exception, e:
+			except Exception as e:
 			    isError = True
 			    info_string = _utils.formattedException(details=e)
 			    d_context['ERROR_%s' % (field_name.upper())] = oohtml.render_SPAN('<BR/>'.join(info_string.split('\n')), class_='error')
@@ -257,7 +257,7 @@ class DjangoForm(Cooperative):
 			isError = False
 			try:
 			    aField.value = _utils.getFromDateTimeStr(aField.value,format=_utils.formatDate_MMDDYYYY_slashes())
-			except Exception, e:
+			except Exception as e:
 			    isError = True
 			    info_string = _utils.formattedException(details=e)
 			    d_context['ERROR_%s' % (field_name.upper())] = oohtml.render_SPAN('<BR/>'.join(info_string.split('\n')), class_='error')
@@ -290,7 +290,7 @@ class DjangoForm(Cooperative):
 		    url_toks = django_utils.parse_url_parms(request)
 		    kw = {pk.column:int(url_toks[-1]) if (str(url_toks[-1]).isdigit()) else -1}
 		anObj = self.model.objects.get(**kw)
-	    except Exception, details:
+	    except Exception as details:
 		anObj = self.model()
 		
 	    for field_name,aField in self.fields.iteritems():
@@ -299,18 +299,18 @@ class DjangoForm(Cooperative):
 			anObj.__setattr__(field_name,aField._value)
 		    else:
 			anObj.__setattr__(field_name,aField.value)
-		except Exception, e: # ignore all the hidden fields or any other fields for which there is no data present.
+		except Exception as e: # ignore all the hidden fields or any other fields for which there is no data present.
 		    info_string = _utils.formattedException(details=e)
 	    for k,v in self.__extra_fields__.iteritems():
 		try:
 		    anObj.__setattr__(k,v)
-		except Exception, e:
+		except Exception as e:
 		    info_string = _utils.formattedException(details=e)
 	    if (callable(callback_beforeSave)):
 		callback_beforeSave(self,request,anObj)
 	    try:
 		anObj.save()
-	    except Exception, details:
+	    except Exception as details:
 		self.__last_error__ = _utils.formattedException(details=details)
 		if (callable(callback_error)):
 		    callback_error(self,request)

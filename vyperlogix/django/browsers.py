@@ -120,7 +120,7 @@ def get_browser_from(s_user_agent,seps=[';', ','],regex=r"\(.*?\)"):
             if (isAnalysis):
                 try:
                     _bucket['version'] = float('.'.join(_version.split('.')[0:2]))
-                except Exception, e:
+                except Exception as e:
                     info_string = _utils.formattedException(details=e)
                     pass
             else:

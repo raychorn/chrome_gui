@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -52,20 +52,20 @@ def asCSV(item,allowEmptyCells=True):
 #@TailRecursive.tail_recursion
 #def flatten(s,t):
     #for item in s:
-	#if (isList(item)) or (isIterable(item)):
-	    #l = item
-	    #if (not isList(item)):
-		#l = list(item)
-	    #flatten(l,t)
-	#else:
-	    #t.append(item)
+        #if (isList(item)) or (isIterable(item)):
+            #l = item
+            #if (not isList(item)):
+                #l = list(item)
+            #flatten(l,t)
+        #else:
+            #t.append(item)
 
 def normalize_as_float(val):
     _val = val
     try:
-	_val = float(_val)
+        _val = float(_val)
     except:
-	pass
+        pass
     return _val
 
 def isValidFolder(s):
@@ -86,7 +86,7 @@ def isBooleanString(s):
     d = {'True': True, 'False': False,}
     t = str(s).lower().capitalize()
     if (isString(t) and (t in d.keys())):
-	return d[t]
+        return d[t]
     return False
 
 def isInteger(s):
@@ -108,9 +108,9 @@ def isHashedDict(s):
 def isDict(s):
     _has_key = False
     try:
-	_has_key = callable(s.has_key)
+        _has_key = callable(s.has_key)
     except:
-	_has_key = False
+        _has_key = False
     return (isSimpleDict(s)) or (_has_key)
 
 def isList(obj):
@@ -122,10 +122,10 @@ def isList(obj):
 
 def isTuple(obj):
     try:
-	if (len(obj) == 0):
-	    obj += (1)
-	if (len(obj) > 0):
-	    obj[0] = obj[0]
+        if (len(obj) == 0):
+            obj += (1)
+        if (len(obj) > 0):
+            obj[0] = obj[0]
     except:
         return True
     return False
@@ -148,15 +148,15 @@ def clone(l):
 
 def append(l,item):
     if (isList(l)):
-	if (not isList(item)):
-	    item = [item]
-	for it in item:
-	    l.append(it)
+        if (not isList(item)):
+            item = [item]
+        for it in item:
+            l.append(it)
     return l
 
 def copy(l):
     if (isList(l)):
-	return [item for item in l]
+        return [item for item in l]
     return l
 
 def findAllContaining(lst,s_search,callback=None,returnIndexes=False,returnOne=False,itemHandler=None):
@@ -169,28 +169,28 @@ def findAllContaining(lst,s_search,callback=None,returnIndexes=False,returnOne=F
     i = 0
     l = []
     if (isList(lst)):
-	compare_func = lambda item,search:item.find(search) > -1
-	compare_func_re = lambda item,search:search.search(item)
-	compare_func = compare_func
-	if (isRePattern(s_search)):
-	    compare_func = compare_func_re
-	for item in lst:
-	    if (itemHandler) and (callable(itemHandler)):
-		try:
-		    item = itemHandler(item)
-		except:
-		    pass
-	    if ((compare_func(item,s_search)) if (not callable(callback)) else doCallback(item,callback)):
-		l.append(item if (not returnIndexes) else i)
-		if (returnOne):
-		    break
-	    i += 1
+        compare_func = lambda item,search:item.find(search) > -1
+        compare_func_re = lambda item,search:search.search(item)
+        compare_func = compare_func
+        if (isRePattern(s_search)):
+            compare_func = compare_func_re
+        for item in lst:
+            if (itemHandler) and (callable(itemHandler)):
+                try:
+                    item = itemHandler(item)
+                except:
+                    pass
+            if ((compare_func(item,s_search)) if (not callable(callback)) else doCallback(item,callback)):
+                l.append(item if (not returnIndexes) else i)
+                if (returnOne):
+                    break
+            i += 1
     return l
 
 def findFirstContaining(lst,s_search,callback=None,returnIndexes=True):
     r = -1
     if (isList(lst)):
-	r = findAllContaining(lst,s_search,callback=callback,returnIndexes=returnIndexes,returnOne=True)
+        r = findAllContaining(lst,s_search,callback=callback,returnIndexes=returnIndexes,returnOne=True)
     return -1 if (len(r) == 0) else r[0]
 
 def findAllMatching(lst,s_search,callback=None,returnIndexes=False,returnOne=False):
@@ -203,91 +203,91 @@ def findAllMatching(lst,s_search,callback=None,returnIndexes=False,returnOne=Fal
     i = 0
     l = []
     if (isList(lst)):
-	compare_func = lambda item,search:item == search
-	compare_func_re = lambda item,search:search.search(item)
-	if (isString(s_search)) or (isRePattern(s_search)):
-	    compare_func = compare_func
-	    if (isRePattern(s_search)):
-		compare_func = compare_func_re
-	    for item in lst:
-		if (compare_func(item,s_search) if (not callable(callback)) else doCallback(item,callback)):
-		    l.append(item if (not returnIndexes) else i)
-		    if (returnOne):
-			break
-		i += 1
-	elif (isList(s_search)):
-	    for i in xrange(0,len(lst)-len(s_search)):
-		if (lst[i:i+len(s_search)] == s_search):
-		    l.append(s_search if (not returnIndexes) else i)
-		    if (returnOne):
-			break
-	else: # to allow for any type of search to be performed even when strings are not being used...
-	    compare_func = compare_func
-	    if (isRePattern(s_search)):
-		compare_func = compare_func_re
-	    for item in lst:
-		if (compare_func(item,s_search) if (not callable(callback)) else doCallback(item,callback)):
-		    l.append(item if (not returnIndexes) else i)
-		    if (returnOne):
-			break
-		i += 1
+        compare_func = lambda item,search:item == search
+        compare_func_re = lambda item,search:search.search(item)
+        if (isString(s_search)) or (isRePattern(s_search)):
+            compare_func = compare_func
+            if (isRePattern(s_search)):
+                compare_func = compare_func_re
+            for item in lst:
+                if (compare_func(item,s_search) if (not callable(callback)) else doCallback(item,callback)):
+                    l.append(item if (not returnIndexes) else i)
+                    if (returnOne):
+                        break
+                i += 1
+        elif (isList(s_search)):
+            for i in xrange(0,len(lst)-len(s_search)):
+                if (lst[i:i+len(s_search)] == s_search):
+                    l.append(s_search if (not returnIndexes) else i)
+                    if (returnOne):
+                        break
+        else: # to allow for any type of search to be performed even when strings are not being used...
+            compare_func = compare_func
+            if (isRePattern(s_search)):
+                compare_func = compare_func_re
+            for item in lst:
+                if (compare_func(item,s_search) if (not callable(callback)) else doCallback(item,callback)):
+                    l.append(item if (not returnIndexes) else i)
+                    if (returnOne):
+                        break
+                i += 1
     return l
 
 def findFirstMatching(lst,s_search,callback=None,returnIndexes=True):
     r = -1
     if (isList(lst)):
-	r = findAllMatching(lst,s_search,callback=callback,returnIndexes=returnIndexes,returnOne=True)
+        r = findAllMatching(lst,s_search,callback=callback,returnIndexes=returnIndexes,returnOne=True)
     return -1 if (len(r) == 0) else r[0]
 
 def insert(lst,index,value):
     if (isList(lst)):
-	try:
-	    lst.insert(index,value)
-	    return lst
-	except:
-	    pass
+        try:
+            lst.insert(index,value)
+            return lst
+        except:
+            pass
     return lst
 
 def insertCopy(lst,index,value):
     if (isList(lst)):
-	try:
-	    _lst = [i for i in lst]
-	    return insert(_lst,index,value)
-	except:
-	    pass
+        try:
+            _lst = [i for i in lst]
+            return insert(_lst,index,value)
+        except:
+            pass
     return lst
 
 def reverse(l):
     if (isList(l)):
-	try:
-	    ll = copy(l)
-	    ll.reverse()
-	    return ll
-	except:
-	    pass
+        try:
+            ll = copy(l)
+            ll.reverse()
+            return ll
+        except:
+            pass
     return l
 
 def reverseCopy(l):
     if (isList(l)):
-	try:
-	    _l = [i for i in l]
-	    return reverse(_l)
-	except:
-	    pass
+        try:
+            _l = [i for i in l]
+            return reverse(_l)
+        except:
+            pass
     return l
 
 def reverseDigitsList(foo):
     if (isList(foo)):
-	try:
-	    return ''.join([t.strip() for t in str(reverse(eval(foo) if (isString(foo)) else foo)).split()])
-	except:
-	    return None
+        try:
+            return ''.join([t.strip() for t in str(reverse(eval(foo) if (isString(foo)) else foo)).split()])
+        except:
+            return None
     return None
-    
+
 def removeAll(items):
     if (isList(items)):
-	while (len(items) > 0):
-	    items.pop()
+        while (len(items) > 0):
+            items.pop()
 
 def sort(l):
     try:
@@ -329,7 +329,7 @@ def formattedException(details='',_callersName=None,depth=None,delims='\n'):
     stack = traceback.format_exception(*exc_info)
     stack = stack if ( (depth is None) or (not isInteger(depth)) ) else stack[0:depth]
     try:
-	info_string = delims.join(stack)
+        info_string = delims.join(stack)
     except:
-	info_string = '\n'.join(stack)
+        info_string = '\n'.join(stack)
     return '(' + _callersName + ') :: "' + str(details) + '". ' + info_string

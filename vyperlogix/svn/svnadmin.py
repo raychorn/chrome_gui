@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -59,14 +59,14 @@ class SVNAdminShell(CooperativeClass.Cooperative):
 		    if (callable(self.__callback__)):
 			try:
 			    self.__callback__(self)
-			except Exception, ex:
+			except Exception as ex:
 			    info_string = _utils.formattedException(details=ex)
 			    print >> self.__sysout__, info_string
 	    def onExit():
 		if (callable(self.__onExit__)):
 		    try:
 			self.__onExit__(self)
-		    except Exception, ex:
+		    except Exception as ex:
 			info_string = _utils.formattedException(details=ex)
 			print >> self.__sysout__, info_string
 	    if (misc.isStringValid(top)) and (os.path.exists(top)) and (os.path.isdir(top)):

@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -118,14 +118,14 @@ class BinXMLSAXParser(XMLReader):
         if type(stream) is file:
             try:
                 self.d = marshal.load(stream)
-            except Exception, e:
+            except Exception as e:
                 sys.exit(e)
 
         # Check if it is a file path
         elif os.path.exists(stream):
             try:
                 self.d = marshal.load(open(stream,'rb'))
-            except Exception, e:
+            except Exception as e:
                 sys.exit(e)
         else:
             raise 'BinXMLSAXParserException: Invalid Input Source'
@@ -176,7 +176,7 @@ class XMLMarshal(object):
             p.parse(open(xmlfile))
             # print h.d
             marshal.dump(h.d, stream)
-        except Exception, e:
+        except Exception as e:
             sys.exit(e)
 
     def dumps(stream, xmlfile):
@@ -188,7 +188,7 @@ class XMLMarshal(object):
             h = XMLDictionaryHandler()
             p.parse(open(xmlfile))
             return marshal.dumps(h.d, stream)
-        except Exception, e:
+        except Exception as e:
             sys.exit(e)
 
         return None
@@ -202,7 +202,7 @@ class XMLMarshal(object):
             p=BinXMLSAXParser()
             p.setContentHandler(XMLGenerator(out))
             p.parse(stream)
-        except Exception, e:
+        except Exception as e:
             sys.exit(e)
 
     def loads(stream):
@@ -216,7 +216,7 @@ class XMLMarshal(object):
             p=BinXMLSAXParser()
             p.setContentHandler(XMLGenerator(c))
             p.parse(stream)
-        except Exception, e:
+        except Exception as e:
             sys.exit(e)
 
         return c.getvalue()

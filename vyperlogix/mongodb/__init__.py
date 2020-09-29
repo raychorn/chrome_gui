@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -69,7 +69,7 @@ class SleepyMongoose(MagicObject.MagicObject2):
                 q = '?'+'&'.join(['%s=%s' % (p[0],urllib2.quote(p[-1])) for p in parms]) if (len(parms) > 0) else ''
             response = urllib2.urlopen(url+q)
             data = response.read()
-        except Exception, ex:
+        except Exception as ex:
             self.__last_exception__ = _utils.formattedException(details=ex)
             data = None
         return data
@@ -79,7 +79,7 @@ class SleepyMongoose(MagicObject.MagicObject2):
         try:
             json = self.__http_gets__(url,parms=parms)
             data = simplejson.loads(json)
-        except Exception, ex:
+        except Exception as ex:
             self.__last_exception__ = _utils.formattedException(details=ex)
             data = None
         return data
@@ -90,7 +90,7 @@ class SleepyMongoose(MagicObject.MagicObject2):
         try:
             json = http_post(url,parms)
             data = simplejson.loads(json if (json) else '')
-        except Exception, ex:
+        except Exception as ex:
             self.__last_exception__ = _utils.formattedException(details=ex)
             data = None
         return data

@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import sys
 import logging
 import types
@@ -8,7 +10,7 @@ from vyperlogix.misc import ObjectTypeName
 from vyperlogix.misc.ObjectTypeName import __typeName as ObjectTypeName__typeName
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -134,9 +136,9 @@ def prettyPrint(item,prefix='',title='',tab_width=4,delay_end=False,asCSV=False,
             tab_width = 4 if (not str(tab_width).isdigit()) else tab_width
             if (asCSV):
                 if (isHorizontal):
-                    print >>fOut, '%s' % (misc.asCSV(item.keys()))
-                    print >>fOut, '%s' % (misc.asCSV(item.values()))
-                    print >>fOut, ''
+                    fOut.write('%s\n' % (misc.asCSV(item.keys())))
+                    fOut.write('%s\n' % (misc.asCSV(item.values())))
+                    fOut.write('\n')
                 else:
                     isCallback = ( (csv_callback) and (callable(csv_callback)) )
                     i = 1
@@ -147,13 +149,13 @@ def prettyPrint(item,prefix='',title='',tab_width=4,delay_end=False,asCSV=False,
                                 l = csv_callback(l)
                             except:
                                 pass
-                        print >>fOut, '%s' % (misc.asCSV(l))
+                        fOut.write('%s\n' % (misc.asCSV(l)))
                         i += 1
             else:
                 l_keys = [len(kk) for kk,vv in item.iteritems()]
                 if (len(l_keys) > 0):
                     max_len = misc.sort(l_keys)[-1]
-                    print >>fOut, '%sBEGIN: %s (%d items)' % (prefix,title,len(item))
+                    fOut.write('%sBEGIN: %s (%d items)\n' % (prefix,title,len(item)))
                     i = 1
                     for kk,vv in item.iteritems():
                         i_s_len = int(len(kk)/tab_width)
@@ -162,25 +164,25 @@ def prettyPrint(item,prefix='',title='',tab_width=4,delay_end=False,asCSV=False,
                         if (isinstance(vv,tuple)):
                             vv = list(vv)
                         if (isinstance(vv,list)):
-                            print >>fOut, '(%s' % ('-'*40)
+                            fOut.write('(%s' % ('-'*40))
                             ReportTheList.reportTheList(vv,title='%d :: (%s) %s' % (i,kk,title),fOut=fOut)
-                            print >>fOut, ')%s' % ('-'*40)
-                            print >>fOut, ''
+                            fOut.write(')%s' % ('-'*40))
+                            fOut.write('\n')
                         elif (isDict(vv)):
-                            print >>fOut, '{%s' % ('-'*40)
+                            fOut.write('{%s' % ('-'*40))
                             prettyPrint(vv,'\t\t',title='%d :: (%s) %s' % (i,kk,title),fOut=fOut)
-                            print >>fOut, '}%s' % ('-'*40)
-                            print >>fOut, ''
+                            fOut.write('}%s' % ('-'*40))
+                            fOut.write('\n')
                         else:
                             try:
-                                print >>fOut, '%s\t\t%d :: %s%s-->%s' % (prefix,i,kk,'\t'*i_spaces,vv)
+                                fOut.write('%s\t\t%d :: %s%s-->%s' % (prefix,i,kk,'\t'*i_spaces,vv))
                             except:
                                 pass
                         i += 1
                     _end_msg = '%sEND! %s from %s' % (prefix,title,_type_name)
                     if (not delay_end):
-                        print >>fOut, _end_msg
-                        print >>fOut, ''
+                        fOut.write(_end_msg)
+                        fOut.write('\n')
                     else:
                         ret.append(_end_msg)
                         ret.append('')
@@ -188,9 +190,9 @@ def prettyPrint(item,prefix='',title='',tab_width=4,delay_end=False,asCSV=False,
                     logging.warning('(%s) :: Unable to process the object passed to this function due to lack of data.' % (misc.funcName()))
         else:
             logging.warning('(%s) :: Unable to process the object passed to this function because it is of type "%s" and a dictionary object was expected.' % (misc.funcName(),_type_name))
-    except Exception, details:
+    except Exception as details:
         info_string = misc.formattedException(details=details)
-        print >>sys.stderr, info_string
+        sys.stderr.write(info_string)
     return ret
 
 def _prettyPrint(item,prefix='',title='',tab_width=4,delay_end=False,fOut=sys.stdout):
@@ -221,9 +223,9 @@ class HashedLists(UnicodeMixin, CooperativeClass.Cooperative):
             try:
                 if (fromDict.keys()) and (fromDict.values()):
                     self.fromDict(fromDict)
-            except Exception, details:
+            except Exception as details:
                 info_string = misc.formattedException(details=details)
-                print >>sys.stderr, info_string
+                sys.stderr.write(info_string)
 
     def __repr__(self):
         return '(%s) storing %d keys.' % (ObjectTypeName__typeName(self),len(self.keys()))
@@ -310,7 +312,7 @@ class HashedLists(UnicodeMixin, CooperativeClass.Cooperative):
 
     def __getitem__(self, key):
         _key = self.__make_key__(key)
-        return self.__dict[_key] if (self.__dict.has_key(_key)) else None
+        return self.__dict[_key] if (_key in self.__dict.keys()) else None
 
     def __setitem__(self, key, value):
         _key = self.__make_key__(key)
@@ -381,8 +383,8 @@ class HashedLists(UnicodeMixin, CooperativeClass.Cooperative):
             else:
                 s[-1] = s[-1]+'"%s"' % (v)
         if (output):
-            print '\n'.join(s)
-        return '\n'.join(s)
+            print_function('\n'.join(s))
+        return('\n'.join(s))
 
 class HashedLists2(HashedLists):
     def __getitem__(self, key):

@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -22,7 +22,7 @@ def json_to_python(json):
     try:
         from django.utils import simplejson
         d = simplejson.loads(json)
-    except Exception, e:
+    except Exception as e:
         info_string = _utils.formattedException(details=e)
         json = {'__error__':info_string}
     return d

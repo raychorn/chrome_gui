@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -96,7 +96,7 @@ class WindowsHosts(HashedUniqueLists,SmartObject):
         except IOError, ex:
             print 'An error occured while trying to write the file:\n{path}\n\nError {message}\n\nWindows Vista/7 users:\nIf enabled, UAC prevents alterations to this file or location.\n\nConsider making a backup file in a different location.'.format(path=path, message=ex.message)
             print _utils.formattedException(details=ex)
-        except Exception, ex:
+        except Exception as ex:
             print 'Unexpected error:\n{info}'.format(info=sys.exc_info()[0])
             print _utils.formattedException(details=ex)
         return

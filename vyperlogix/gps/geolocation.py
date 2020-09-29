@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -103,7 +103,7 @@ class GeolocationDistance():
 	try:
 	    if (self.multipliers.has_key(units)):
 		result = result * self.multipliers[units];
-	except Exception, e:
+	except Exception as e:
 	    print str(e)
 	return result;
     

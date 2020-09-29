@@ -4,7 +4,7 @@ from vyperlogix import misc
 from vyperlogix.misc import ObjectTypeName
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -58,7 +58,7 @@ def importPsycoIfPossible(func=None,isVerbose=False):
                     _utils.print_stderrout('%s :: Cannot bind psyco to "%s" because the bind target is not a function or a list of functions !' % (misc.funcName(),str(func)))
             else:
                 psyco.full()
-        except Exception, details:
+        except Exception as details:
             if (isVerbose):
                 print '%s :: psyco has not been imported because "%s" !' % (misc.funcName(),str(details))
     else:

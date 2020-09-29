@@ -197,7 +197,7 @@ class LockBase:
         ...   lock2.acquire(timeout=-1)
         ... except AlreadyLocked:
         ...   pass
-        ... except Exception, e:
+        ... except Exception as e:
         ...   print 'unexpected exception', repr(e)
         ... else:
         ...   print 'thread', threading.currentThread().getName(),
@@ -218,7 +218,7 @@ class LockBase:
         ...   lock2.acquire(timeout=0.1)
         ... except LockTimeout:
         ...   pass
-        ... except Exception, e:
+        ... except Exception as e:
         ...   print 'unexpected exception', repr(e)
         ... else:
         ...   lock2.release()
@@ -248,7 +248,7 @@ class LockBase:
         ...   pass
         ... except NotMyLock:
         ...   print 'unexpected exception', NotMyLock
-        ... except Exception, e:
+        ... except Exception as e:
         ...   print 'unexpected exception', repr(e)
         ... else:
         ...   print 'erroneously unlocked file'
@@ -265,7 +265,7 @@ class LockBase:
         ...   lock2.release()
         ... except NotMyLock:
         ...   pass
-        ... except Exception, e:
+        ... except Exception as e:
         ...   print 'unexpected exception', repr(e)
         ... else:
         ...   print 'erroneously unlocked a file locked by another thread.'
@@ -333,7 +333,7 @@ class LockBase:
         ...   lock.release()
         ... except NotLocked:
         ...   pass
-        ... except Exception, e:
+        ... except Exception as e:
         ...   print 'unexpected exception', repr(e)
         ... else:
         ...   print 'break lock failed'

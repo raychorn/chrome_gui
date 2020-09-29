@@ -46,7 +46,7 @@ class SalesForceMagmaCompetitors(SalesForceAbstract):
 			ids.append(rec['Id'])
 	    from vyperlogix.sf.delete import deleteSalesForceObjects
 	    deleteSalesForceObjects(self.sfQuery.sfdc, ids)
-	except Exception, details:
+	except Exception as details:
 	    info_string = _utils.formattedException(details=details)
 	    print >>sys.stderr, info_string
 	return info_string

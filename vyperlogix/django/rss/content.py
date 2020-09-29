@@ -8,7 +8,7 @@ def rss_content(url,source_domain='',target_domain=''):
 
     try:
         rss = reader.read_feed_links(url)
-    except Exception, e:
+    except Exception as e:
         rss = [['CANNOT ACCESS NEWS FEED :: %s' % (str(e)),url,'']]
 
     toks = list(urllib.splitquery(url))

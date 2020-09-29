@@ -21,7 +21,7 @@ class wxLog(Cooperative):
 	    x = x.strip()
 	    log.AppendText(x+'\n')
 	    print >>sys.stdout, x
-	except Exception, details:
+	except Exception as details:
 	    _details = _utils.formattedException(details)
 	    print >>sys.stderr, _details
 
@@ -29,7 +29,7 @@ class wxLog(Cooperative):
         if (self.f):
             try:
 		wx.CallAfter(self._appendText,self.f,s)
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
 		print >>sys.stderr, info_string
             
@@ -47,7 +47,7 @@ class wxSimpleLog(wxLog):
 	try:
 	    x = x.strip()
 	    print >>sys.stdout, x
-	except Exception, details:
+	except Exception as details:
 	    _details = _utils.formattedException(details)
 	    print >>sys.stderr, _details
 

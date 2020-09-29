@@ -107,7 +107,7 @@ class Args(Cooperative):
 		_is_floating_digits_ = _utils.is_floating_digits(str(self.arguments[argName]))
 		try:
 		    self.__vars__[argName] = self.__listify_value(self.arguments[argName],as_list=self.__as_list) if (not _is_digits_) and (not _is_floating_digits_) else int(str(self.arguments[argName])) if (_is_digits_) else float(str(self.arguments[argName]))
-		except Exception, ex:
+		except Exception as ex:
 		    print 'ERROR: [%s] %s' % (self.arguments[argName],_utils.formattedException(details=ex))
             else:
                 # Booleans...
@@ -127,7 +127,7 @@ class Args(Cooperative):
 	if (isinstance(result, str)) and (len(result) > 0):
 	    try:
 		toks = [f[0].replace('[','').replace(']','') for f in result.split(',') if (len(f) > 0)]
-	    except Exception, ex:
+	    except Exception as ex:
 		print 'ERROR: result=%s, %s' % (result, _utils.formattedException(details=ex))
 		toks = []
 	if (as_list):
@@ -171,7 +171,7 @@ class SmartArgs(Args):
 		self[toks[0]] = ''
 		try:
 		    self[toks[0]] = self.__named_argument_or_else(toks[0],self[toks[0]])
-		except Exception, e:
+		except Exception as e:
 		    info_string = _utils.formattedException(details=e)
 		    print >>sys.stderr, info_string
 	    else:
@@ -179,7 +179,7 @@ class SmartArgs(Args):
 		self[_k_] = False
 		try:
 		    self[_k_] = self.__named_boolean_or_else(k,self[_k_])
-		except Exception, e:
+		except Exception as e:
 		    info_string = _utils.formattedException(details=e)
 		    print >>sys.stderr, info_string
 		    self[_k_] = False

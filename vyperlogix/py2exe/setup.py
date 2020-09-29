@@ -626,14 +626,14 @@ def do_setup(program_name=None,company_name=None,product_name=None,description=N
 				    print '(@@@).4 special-service-file=%s' % (f)
 			_l_.append(f)
 	    __datafiles__.append(tuple([df[0],_l_]))
-    except Exception, ex:
+    except Exception as ex:
 	print >> sys.stderr, _utils.formattedException(details=ex)
     try:
 	for df in data_files:
 	    __df__ = find_data_files(df)
 	    if (len(__df__) > 0):
 		__datafiles__.append(__df__)
-    except Exception, ex:
+    except Exception as ex:
 	print >> sys.stderr, _utils.formattedException(details=ex)
     print '(2). __datafiles__=%s' % (__datafiles__)
     __excludes__ = ["pywin", "pywin.debugger", "pywin.debugger.dbgcon",
@@ -858,7 +858,7 @@ def do_setup(program_name=None,company_name=None,product_name=None,description=N
 	if (callable(callback)):
 	    try:
 		callback(dist_dir)
-	    except Exception, ex:
+	    except Exception as ex:
 		print >> sys.stderr, 'EXCEPTION: %s' % (_utils.formattedException(details=ex))
 
 import os, sys

@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -41,7 +41,7 @@ class Shell(CooperativeClass.Cooperative):
 	if (callable(self.__callback__)):
 	    try:
 		self.__callback__(data)
-	    except Exception, ex:
+	    except Exception as ex:
 		info_string = _utils.formattedException(details=ex)
 		print >> sys.stderr, info_string
 
@@ -49,7 +49,7 @@ class Shell(CooperativeClass.Cooperative):
 	if (callable(self.__callback__)):
 	    try:
 		self.__callback__(None)
-	    except Exception, ex:
+	    except Exception as ex:
 		info_string = _utils.formattedException(details=ex)
 		print >> sys.stderr, info_string
         _isExit=isExit

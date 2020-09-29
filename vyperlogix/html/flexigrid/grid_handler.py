@@ -6,7 +6,7 @@ from vyperlogix.misc import _utils
 from vyperlogix.misc import ObjectTypeName
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -34,42 +34,42 @@ def grid_handler(request,cls_or_object,func,total=None):
     
     try:
         page = int(request.POST['page'])
-    except Exception, details:
+    except Exception as details:
         page = -1
         info_string = _utils.formattedException(details=details)
         print >>sys.stderr, info_string
         
     try:
         rp = int(request.POST['rp'])
-    except Exception, details:
+    except Exception as details:
         rp = -1
         info_string = _utils.formattedException(details=details)
         print >>sys.stderr, info_string
 
     try:
         sortname = request.POST['sortname']
-    except Exception, details:
+    except Exception as details:
         sortname = ''
         info_string = _utils.formattedException(details=details)
         print >>sys.stderr, info_string
 
     try:
         sortorder = str(request.POST['sortorder']).lower()
-    except Exception, details:
+    except Exception as details:
         sortorder = ''
         info_string = _utils.formattedException(details=details)
         print >>sys.stderr, info_string
 
     try:
         query = request.POST['query']
-    except Exception, details:
+    except Exception as details:
         query = ''
         info_string = _utils.formattedException(details=details)
         print >>sys.stderr, info_string
 
     try:
         qtype = request.POST['qtype']
-    except Exception, details:
+    except Exception as details:
         qtype = ''
         info_string = _utils.formattedException(details=details)
         print >>sys.stderr, info_string
@@ -94,27 +94,27 @@ def grid_handler(request,cls_or_object,func,total=None):
                 else :
                     rows = items.filter( qtype + ' =', query.upper() )
                     count = _real_count(items)
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >>sys.stderr, info_string
         elif (isinstance(cls_or_object,list)):
             try:
                 rows = items = cls_or_object
                 count = _real_count(items)
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >>sys.stderr, info_string
         else:
             try:
                 rows = items = [cls_or_object]
                 count = _real_count(items)
-            except Exception, details:
+            except Exception as details:
                 info_string = _utils.formattedException(details=details)
                 print >>sys.stderr, info_string
     
         cells = [ func(r) for r in rows ]
         results = [ {'cell' : c } for c in cells ]
-    except Exception, details:
+    except Exception as details:
         results = []
         count = _real_count(results)
         info_string = _utils.formattedException(details=details)

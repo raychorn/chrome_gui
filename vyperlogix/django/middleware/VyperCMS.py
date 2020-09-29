@@ -68,7 +68,7 @@ class VyperOptimizeMiddleware(object):
                                 styles.append(aTag)
                             else:
                                 tags.append(aTag)
-                        except Exception, e:
+                        except Exception as e:
                             info_string = _utils.formattedException(details=e)
                             pass
                     else:

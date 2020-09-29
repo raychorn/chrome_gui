@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -37,13 +37,13 @@ def killProcByPID(pid,isVerbose=False):
                 try:
                     import win32api
                     win32api.TerminateProcess(proc_handle, -1)
-                except Exception, details:
+                except Exception as details:
                     from vyperlogix.misc import _utils
                     info_string += _utils.formattedException(details=details)
                     try:
                         import ctypes
                         ctypes.windll.kernel32.TerminateProcess(proc_handle, -1)
-                    except Exception, details:
+                    except Exception as details:
                         from vyperlogix.misc import _utils
                         info_string += _utils.formattedException(details=details)
                         print >>sys.stderr, 'ERROR: Cannot Kill the process with pid of %s due to a system error.' % (pid)
@@ -56,7 +56,7 @@ def killProcByPID(pid,isVerbose=False):
     else:
         try:
             os.kill(pid)
-        except Exception, details:
+        except Exception as details:
             from vyperlogix.misc import _utils
             info_string += _utils.formattedException(details=details)
             print >>sys.stderr, 'ERROR: Cannot kill the process !'

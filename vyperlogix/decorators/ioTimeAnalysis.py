@@ -3,7 +3,7 @@ import functools
 from vyperlogix.misc import ioTimeAnalysis
 
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -37,7 +37,7 @@ def analyze(reason):
             val = None
             try:
                 val = func(*args,**kwargs)
-            except Exception, ex:
+            except Exception as ex:
                 ioTimeAnalysis.ioEndTime(reason)
                 raise ex
             ioTimeAnalysis.ioEndTime(reason)
@@ -59,7 +59,7 @@ def Analyze(reason):
             val = None
             try:
                 val = self.fn(*args, **kwargs)
-            except Exception, ex:
+            except Exception as ex:
                 ioTimeAnalysis.ioEndTime(reason)
                 raise ex
             ioTimeAnalysis.ioEndTime(reason)

@@ -43,7 +43,7 @@ class CurrentUsersProcessMixin():
 		    contacts = assets.getAccountContacts(aId)
 		    wxParent.append_to_message_Q('\tHas %d Contact%s.' % (len(contacts),'(s)' if (len(contacts) > 1) else ''))
 		    wxParent.acceptContacts(rec,contacts)
-		except Exception, details:
+		except Exception as details:
 		    _details = _utils.formattedException(details=details)
 		    print >>sys.stdout, _details
 		    print >>sys.stderr, _details
@@ -51,7 +51,7 @@ class CurrentUsersProcessMixin():
 		finally:
 		    self.count += 1
 	    pass
-	except Exception, details:
+	except Exception as details:
 	    _details = _utils.formattedException(details=details)
 	    print >>sys.stdout, _details
 	    print >>sys.stderr, _details
@@ -113,7 +113,7 @@ class CurrentUsersProcessMixin():
 			assets[item['Asset_Id']] = item['Asset_Name']
 			del item['Asset_Id']
 			del item['Asset_Name']
-		    except Exception, details:
+		    except Exception as details:
 			info_string = _utils.formattedException(details=details)
 			appendText(self.__child_frame.textboxLog,info_string)
 		v[0]['Asset_Ids'] = ','.join(misc.sortCopy([item for item in list(set(assets.keys()))]))

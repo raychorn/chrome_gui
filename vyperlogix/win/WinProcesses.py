@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -61,7 +61,7 @@ class Win32Processes(Cooperative):
                 procmemusage = (procmeminfo["WorkingSetSize"]/1024)
                 try:
                     modules = self.modulelist(procHandle)
-                except Exception, details:
+                except Exception as details:
                     modules = None
                 item = (process,procmemusage,str(modules))
                 if (not isSilent):
@@ -97,7 +97,7 @@ class Win32Processes(Cooperative):
     def openProcessForPID(self,pid):
         try:
             procHandle = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION, 0, pid)
-        except Exception, details:
+        except Exception as details:
             print '(%s) :: ERROR due to "%s".' % (ObjectTypeName.objectSignature(self),str(details))
             procHandle = None
         return procHandle
@@ -105,7 +105,7 @@ class Win32Processes(Cooperative):
     def openProcessTerminateForPID(self,pid):
         try:
             procHandle = win32api.OpenProcess(win32con.PROCESS_TERMINATE, 0, pid)
-        except Exception, details:
+        except Exception as details:
             print '(%s) :: ERROR due to "%s".' % (ObjectTypeName.objectSignature(self),str(details))
             procHandle = None
         return procHandle
@@ -172,7 +172,7 @@ class WinProcesses(Win32Processes):
     def __init__(self):
         try:
             self.wmi = GetObject('winmgmts:')
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, 'WARNING: Unable to access the WMI Object due to the need to be "Run as Administrator".  Rerun using the "Run as Administrator" option.'
 
@@ -253,7 +253,7 @@ class ProcessNode(tinytree.Tree):
                 root.addChild(node)
             else:
                 n.addChild(node)
-        except Exception, details:
+        except Exception as details:
             info_string = _utils.formattedException(details=details)
             print >>sys.stderr, info_string
 
@@ -320,7 +320,7 @@ class ProcessTree(MagicObject2):
         s = 'self.root.%s(%s=%s)' % (m[0][0],d.keys()[0],d.values()[0])
         try:
             n = eval(s)
-        except Exception, _details:
+        except Exception as _details:
             info_string = _utils.formattedException(details=_details)
             print >>sys.stderr, info_string
         self.__reset_magic__()

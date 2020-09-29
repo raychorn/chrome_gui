@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -124,7 +124,7 @@ class Wrapper(MagicObject2):
 	s = 'self.__object__.%s(*args,**kwargs)' % (n)
 	try:
 	    results = eval(s)
-	except Exception, details:
+	except Exception as details:
 	    results = None
 	    print >> sys.stderr, _utils.formattedException(details=details)
 	return results

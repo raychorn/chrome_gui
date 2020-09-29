@@ -1,5 +1,5 @@
 __copyright__ = """\
-(c). Copyright 2008-2014, Vyper Logix Corp., All Rights Reserved.
+(c). Copyright 2008-2020, Vyper Logix Corp., All Rights Reserved.
 
 Published under Creative Commons License 
 (http://creativecommons.org/licenses/by-nc/3.0/) 
@@ -99,6 +99,6 @@ def unZipInto(_zip,target,isVerbose=False,callback=None):
 			    callback(EntityType.file,f,fname)
 			except:
 			    pass
-    except Exception, _details:
+    except Exception as _details:
 	if (isVerbose):
 	    print _utils.formattedException(details=_details)
