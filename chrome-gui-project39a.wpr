@@ -11,4 +11,4 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
-proj.main-file = loc('gui_builder.py')
+proj.main-file = loc('pyQt-samples/pyQt-gui/gui-test1/gui-test1.py')
