@@ -13,6 +13,11 @@ from guitest_ui import Ui_MainWindow
 class MainWindowClass(Ui_MainWindow):
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
+        self.pushButton_start.clicked.connect(lambda:self.clicked_pushbutton(self.pushButton_start))
+        
+    def clicked_pushbutton(self, btn):
+        msg = 'Button clicked --> "%s".\n' % (btn.text())
+        self.textBrowser_status.setText(self.textBrowser_status.toPlainText() + msg)
 
 if (__name__ == "__main__"):
     import sys

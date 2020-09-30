@@ -25,15 +25,18 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 121, 61))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 156, 61))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setContentsMargins(20, 0, 20, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.pushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.pushButton.setCheckable(False)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.pushButton_start = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_start.setCheckable(False)
+        self.pushButton_start.setObjectName("pushButton_start")
+        self.horizontalLayout.addWidget(self.pushButton_start)
+        self.textBrowser_status = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser_status.setGeometry(QtCore.QRect(0, 60, 641, 151))
+        self.textBrowser_status.setObjectName("textBrowser_status")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 21))
@@ -49,7 +52,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Hacker\'s Toolbox Version 0.1 :: (c). Copyright 2020, Vyper Logix Corp, All Rights Reserved."))
-        self.pushButton.setText(_translate("MainWindow", "Start Hacker\'s Toolbox"))
+        self.pushButton_start.setText(_translate("MainWindow", "Start Hacker\'s Toolbox"))
 
 
 if __name__ == "__main__":
