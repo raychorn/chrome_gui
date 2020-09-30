@@ -70,6 +70,16 @@
      </rect>
     </property>
    </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>250</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
