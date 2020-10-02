@@ -11,4 +11,8 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
-proj.main-file = loc('pyQt-samples/pyQt-gui/gui-test1/gui-test1.py')
+proj.launch-config = {loc('pyQt-samples/pyQt-gui/gui-test1/faster/setup.py'): ('p'\
+        'roject',
+        (u'build_ext --inplace',
+         ''))}
+proj.main-file = loc('pyQt-samples/pyQt-gui/gui-test1/testing_original.py')

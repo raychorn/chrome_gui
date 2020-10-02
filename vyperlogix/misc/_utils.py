@@ -768,16 +768,14 @@ def getAsDateTimeStr(value, offset=0,fmt=_formatTimeStr()):
     import types
     from datetime import datetime
 
-    strTypes = (types.StringType, types.UnicodeType)
-    numTypes = (types.LongType, types.FloatType, types.IntType)
-    if (not isinstance(offset,strTypes)):
-        if isinstance(value, (types.TupleType, time.struct_time)):
+    if (not isinstance(offset,str)):
+        if isinstance(value, (tuple, time.struct_time,)):
             return time.strftime(fmt, value)
-        if isinstance(value, numTypes):
+        if isinstance(value, (int, float,)):
             secs = time.gmtime(value+offset)
             return time.strftime(fmt, secs)
 
-        if isinstance(value, strTypes):
+        if isinstance(value, str):
             try: 
                 value = time.strptime(value, fmt)
                 return time.strftime(fmt, value)
