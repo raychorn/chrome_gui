@@ -133,6 +133,10 @@ quote_it = lambda arg:'"' if (not str(arg).isdigit()) and ( (not isinstance(arg,
 
 is_floating_digits = lambda s:(len(s.split('.')) == 2) and (all([len(t) == len(numerics_only(t)) for t in s.split('.')]))
 
+is_floating_or_numeric_digit = lambda ch:(not None) and (str(ch).isdigit() or (ch in ['.']))
+
+is_floating_or_numeric_digits = lambda s:(not None) and (isinstance(s, str)) and (len(s) > 0) and all([is_floating_or_numeric_digit(ch) for ch in s])
+
 __regex_valid_ip__ = r"(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
 
 __regex_valid_ip_and_port__ = r"(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([0-9]{1,5})"
